@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.error-message {
+  font-size: 0.8rem;
+  color: #CC0B78;
+}
+
+.site-header {
+  position: relative;
+  height: 6rem;
+}
+
+.main-nav  {
+  font-size: 1rem;
+}
+
+.sign-in,
+.register {
+  width: 20rem;
+}
+
+.sign-in input,
+.register input {
+  width: 80%;
+}
+
+.site-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(92, 218, 218, 0.7);
+  font-size: 1.2rem;
+}
+
+.site-footer a {
+  text-decoration: none;
+  color: #CC0B78;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+.site-footer span {
+  color: #CC0B78;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+@media screen and (min-width: 31rem) {
+  .site-header {
+    height: 10rem;
+  }
+
+  .main-nav  {
+    font-size: 1.5rem;
+  }
+}

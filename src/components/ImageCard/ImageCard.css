@@ -1,0 +1,26 @@
+.ImageCard {
+  width: 22rem;
+  height: 17rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 1rem;
+  position: relative;
+}
+
+.ImageCard .card-button {
+  width: 10rem;
+  position: absolute;
+  bottom: 10%;
+  left: 6rem;
+  background-color: #0239B7;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: navajowhite;
+  transition: padding 0.3s ease-in-out;
+}
+
+.ImageCard .card-button:hover {
+  padding: 0.8rem;
+}

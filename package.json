@@ -2,7 +2,8 @@
   "name": "fun-with-images",
   "homepage": "https://tomkiworld.github.io/fun-with-images/",
   "version": "0.1.0",
-  "private": true,
+  "author": "TomKiWorld",
+  "license": "ISC",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

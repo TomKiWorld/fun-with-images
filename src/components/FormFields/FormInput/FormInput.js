@@ -32,16 +32,17 @@ const FormInput = ({label, name, type, onChange, onKeyUp, extraClass}) => {
 
   return (
     <div className='mt3'>
-      <label className='db fw6 lh-copy f6' htmlFor={type}>{label}</label>
-      <input 
-        onChange={onChange}
-        onKeyUp={onKeyUp}
-        className={`${receivedClass} pa2 input-reset ba b--black bg-transparent hover-bg-black hover-white w-100`} 
-        type={type} 
-        name={name} 
-        id={name} 
-        autoComplete={autocomplete}
-      />
+      <label className='db fw6 lh-copy f6' htmlFor={type}>{label}
+        <input 
+          onChange={onChange}
+          onKeyUp={onKeyUp}
+          className={`${receivedClass} pa2 input-reset ba b--black bg-transparent hover-bg-black hover-white w-100`} 
+          type={type} 
+          name={name} 
+          id={name} 
+          autoComplete={autocomplete}
+        />
+      </label>
     </div>
   );
 }

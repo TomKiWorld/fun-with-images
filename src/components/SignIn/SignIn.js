@@ -54,10 +54,12 @@ class SignIn extends Component {
       .then(user => {
         if (user.id) {
           this.props.loadUser(user);
+          this.setState({loginError: ''});
           this.props.onRouteChange('home');
+        } else {
+          this.setState({loginError: user});
         }
       })
-      this.setState({loginError: ''});
     } else {
       this.setState({loginError: 'Please make sure both fields are entered'});
     }

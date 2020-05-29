@@ -107,10 +107,12 @@ class Register extends Component {
       .then(user => {
         if (user.id) {
           this.props.loadUser(user);
+          this.setState({registerError: ''});
           this.props.onRouteChange('home');
+        } else {
+          this.setState({registerError: user});
         }
       })
-      this.setState({registerError: ''});
     } else {
       this.setState({registerError: 'Something went wrong'});
     }

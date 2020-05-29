@@ -121,8 +121,9 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      if (!response) {
-        throw new Error('We are sorry, but something went wrong');
+      if (!response || !response.outputs) {
+        this.setState({imageUrlError: response})
+        throw new Error(response);
       }
       fetch(`${DATABASE}/image`, {
         method: 'put',
@@ -163,8 +164,9 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      if (!response) {
-        throw new Error('We are sorry, but something went wrong');
+      if (!response || !response.outputs) {
+        this.setState({imageUrlError: response})
+        throw new Error(response);
       }
       this.calculateFaceLocations(response)
     })

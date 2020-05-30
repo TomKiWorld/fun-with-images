@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import Particles from 'react-particles-js';
 import Header from './components/Header/Header';
+import AsyncComponent from './HOC/AsyncComponent/AsyncComponent';
 import SignIn from './components/SignIn/SignIn';
-import Register from './components/Register/Register';
 import FaceApp from './components/FaceApp/FaceApp';
-import Profile from './components/Profile/Profile';
 import Footer from './components/Footer/Footer';
 
 // Set to false during local development 
@@ -38,6 +37,8 @@ const initalState = {
   input: '',
   imageUrl: '',
   imageUrlError: '',
+  getColorsError: '',
+  getFacesError: '',
   colors: [],
   showColorList: false,
   route: 'signin',
@@ -122,8 +123,11 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if (!response || !response.outputs) {
-        this.setState({imageUrlError: response})
-        throw new Error(response);
+        const errMsg = response ? response : 'No response from faces API';
+        this.setState({getColorsError: errMsg})
+        throw new Error(errMsg);
+      } else {
+        this.setState({getColorsError: ''})
       }
       fetch(`${DATABASE}/image`, {
         method: 'put',
@@ -138,7 +142,7 @@ class App extends Component {
         this.setState(Object.assign(this.state.user, { entries: count }));
       })
       .catch(err => console.log('getFaces colors: ', err))
-
+      
       const colorsUsed = [];
       const colorsFound = response.outputs[0].data.colors;
       colorsFound.map(singleColor => {
@@ -165,8 +169,11 @@ class App extends Component {
     .then(response => response.json())
     .then(response => {
       if (!response || !response.outputs) {
-        this.setState({imageUrlError: response})
-        throw new Error(response);
+        const errMsg = response ? response : 'No response from colors API';
+        this.setState({getFacesError: errMsg})
+        throw new Error(errMsg);
+      } else {
+        this.setState({getFacesError: ''})
       }
       this.calculateFaceLocations(response)
     })
@@ -234,6 +241,8 @@ class App extends Component {
   render() {
     const { isSignedIn, imageUrl, boxes, colors, showColorList, route } = this.state;
     const imageUrlError = this.state.imageUrlError ? <p className='error-message'>{this.state.imageUrlError}</p> : '';
+    const getColorsError = this.state.getColorsError ? <p className='error-message'>{this.state.getColorsError}</p> : '';
+    const getFacesError = this.state.getFacesError ? <p className='error-message'>{this.state.getFacesError}</p> : '';
     let content = '';
     switch(route) {
       case 'home':
@@ -243,7 +252,9 @@ class App extends Component {
           entries={this.state.user.entries}
           inputValue={this.state.input}
           imageUrlError={imageUrlError}
-          onInputChange={this.onInputChange} 
+          getColorsError={getColorsError}
+          getFacesError={getFacesError}
+          onInputChange={this.onInputChange}
           onImageUrlSubmit={this.onImageUrlSubmit}
           imageUrl={imageUrl} 
           boxes={boxes} 
@@ -251,18 +262,20 @@ class App extends Component {
           colors={colors}
           showColorList={showColorList}
         />
-      break;
+        break;
       case 'register':
+        const AsyncRegister = AsyncComponent(() => import('./components/Register/Register'));
         content = 
-        <Register 
+        <AsyncRegister 
           database={DATABASE}
           loadUser={this.loadUser}
           onRouteChange={this.onRouteChange}
         />
-      break;
+        break;
       case 'profile':
+        const AsyncProfile = AsyncComponent(() => import('./components/Profile/Profile'));
         content = 
-        <Profile 
+        <AsyncProfile 
           database={DATABASE}
           userId={this.state.user.id}
           userName={this.state.user.name}
@@ -271,7 +284,7 @@ class App extends Component {
           onRouteChange={this.onRouteChange}
           onResubmit={this.onImageResubmit}
         />
-      break;
+        break;
       default:
         content =
         <SignIn 

@@ -25,6 +25,8 @@ const FaceApp = ({
   entries, 
   inputValue,
   imageUrlError, 
+  getColorsError,
+  getFacesError,
   onInputChange, 
   onImageUrlSubmit,
   imageUrl,
@@ -41,6 +43,8 @@ const FaceApp = ({
       <ImageLinkForm
         inputValue={inputValue}
         imageUrlError={imageUrlError}
+        getColorsError={getColorsError}
+        getFacesError={getFacesError}
         onInputChange={onInputChange} 
         onButtonSubmit={onImageUrlSubmit} />
       <FaceRecognition 

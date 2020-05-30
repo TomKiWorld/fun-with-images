@@ -20,7 +20,7 @@ const handleKeyUp = (e) => {
   }
 }
 
-const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, inputValue }) => {
+const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, getColorsError, getFacesError, inputValue }) => {
   return (
     <div>
       <p className='f3'>This App detects faces in images</p>
@@ -41,6 +41,8 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, inputValu
         </div>
       </div>
         {imageUrlError}
+        {getColorsError}
+        {getFacesError}
     </div>
   );
 }

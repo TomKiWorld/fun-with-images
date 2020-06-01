@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import FormInput from '../FormFields/FormInput/FormInput';
-import FormSubmit from '../FormFields/FormSubmit/FormSubmit';
+import FormInput from '../../components/FormFields/FormInput/FormInput';
+import FormSubmit from '../../components//FormFields/FormSubmit/FormSubmit';
+import { DATABASE } from '../../constants';
 
 /**
  * Sign In component
@@ -42,7 +43,7 @@ class SignIn extends Component {
   onSubmitSignIn = (e) => {
     e.preventDefault();
     if ((this.state.signInEmail !== '') && (this.state.signInPassword !== '')) {
-      fetch(`${this.props.database}/signin`, {
+      fetch(`${DATABASE}/signin`, {
         method: 'post',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
@@ -64,16 +65,16 @@ class SignIn extends Component {
       this.setState({loginError: 'Please make sure both fields are entered'});
     }
   }
-
+ 
   // Sign in as visitor
   onSubmitVisitor = (e) => {
     e.preventDefault();
-    fetch(`${this.props.database}/signin`, {
+    fetch(`${DATABASE}/signin`, {
       method: 'post',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
-        email: 'visitor@gmail.com',
-        password: 'visit'
+        email: 'tester@gmail.com',
+password: 'tester'
       })
     })
     .then(response => response.json())

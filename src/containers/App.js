@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import Particles from 'react-particles-js';
-import Header from './components/Header/Header';
-import AsyncComponent from './HOC/AsyncComponent/AsyncComponent';
-import SignIn from './components/SignIn/SignIn';
-import FaceApp from './components/FaceApp/FaceApp';
-import Footer from './components/Footer/Footer';
+import Header from '../components/Header/Header';
+import AsyncComponent from '../HOC/AsyncComponent/AsyncComponent';
+import SignIn from './SignIn/SignIn';
+import FaceApp from './FaceApp/FaceApp';
+import Footer from '../components/Footer/Footer';
+import { DATABASE } from '../constants';
+import { setInputValue, resubmitImageInput } from '../actions';
 
-// Set to false during local development 
-// Make sure to change your production url
-const productionEnv = true;
-const DATABASE = productionEnv ? 'https://fierce-oasis-21316.herokuapp.com' : 'http://localhost:3000';
+const mapStateToProps = (state) => {
+  return {
+    inputValue: state.inputValue
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onInputChange: (event) => dispatch(setInputValue(event.target.value)),
+    onResubmitInput: (text) => dispatch(resubmitImageInput(text))
+  }
+}
 
 // Options for the particals component
 const particlesOptions = {
@@ -34,7 +45,6 @@ const particlesOptions = {
 
 // Initiale state for reset during logout
 const initalState = {
-  input: '',
   imageUrl: '',
   imageUrlError: '',
   getColorsError: '',
@@ -70,18 +80,19 @@ class App extends Component {
   }
 
   // Set the input value on change
-  onInputChange = (event) => {
-    this.setState({input: event.target.value})
-  }
+  // onInputChange = (event) => {
+  //   this.setState({input: event.target.value})
+  // }
 
   // Validate the url on submit and make sure a new url is entered
   onImageUrlSubmit = () => {
-    if (this.state.input) {
+    console.log(this.props)
+    if (this.props.inputValue) {
       const regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-      if (this.state.input !== this.state.imageUrl) {
-        if (regexp.test(this.state.input)) {
+      if (this.props.inputValue !== this.state.imageUrl) {
+        if (regexp.test(this.props.inputValue)) {
           this.setState({
-            imageUrl: this.state.input,
+            imageUrl: this.props.inputValue,
             imageUrlError: ''
           });
           document.querySelectorAll('.bounding-box').forEach(el => el.remove());
@@ -100,15 +111,17 @@ class App extends Component {
 
   // Resubmit an image from the profile page
   onImageResubmit = (url) => {
+    console.log('resubmit: ' ,url)
+    this.props.onResubmitInput(url);
     this.onRouteChange('home');
     this.setState({
-      input: url,
       imageUrl: '',
       imageUrlError: ''
     });
     window.setTimeout(() => {
       this.onImageUrlSubmit();
-    }, 500);
+      console.log('AppDidMount', this.props.inputValue);
+    }, 1000);
   }
 
   // Fetch the colors from the colors API and set state
@@ -117,7 +130,7 @@ class App extends Component {
       method: 'post',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
-        input: this.state.input
+        input: this.props.inputValue
       })
     })
     .then(response => response.json())
@@ -163,7 +176,7 @@ class App extends Component {
       method: 'post',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
-        input: this.state.input
+        input: this.props.inputValue
       })
     })
     .then(response => response.json())
@@ -226,14 +239,14 @@ class App extends Component {
   onRouteChange = (route) => {
     ((route === 'home') || (route === 'profile')) ? this.setState({isSignedIn: true}) : this.setState({isSignedIn: false});
     if (route === 'signin') {
-      this.setState(initalState)
+      this.setState(initalState);
+      setInputValue('');
     }
     if (route === 'home') {
       this.setState({
-        input: '',
         imageUrl: '',
         imageUrlError: ''
-      })
+      });
     }
     this.setState({route: route})
   }
@@ -243,18 +256,21 @@ class App extends Component {
     const imageUrlError = this.state.imageUrlError ? <p className='error-message'>{this.state.imageUrlError}</p> : '';
     const getColorsError = this.state.getColorsError ? <p className='error-message'>{this.state.getColorsError}</p> : '';
     const getFacesError = this.state.getFacesError ? <p className='error-message'>{this.state.getFacesError}</p> : '';
+    const { inputValue, onInputChange } = this.props;
     let content = '';
     switch(route) {
       case 'home':
+        // const AsyncFaceApp = AsyncComponent(() => import('./FaceApp/FaceApp'));
         content = 
         <FaceApp 
+        // {/* <AsyncFaceApp */}
           userName={this.state.user.name}
           entries={this.state.user.entries}
-          inputValue={this.state.input}
+          inputValue={inputValue}
           imageUrlError={imageUrlError}
           getColorsError={getColorsError}
           getFacesError={getFacesError}
-          onInputChange={this.onInputChange}
+          onInputChange={onInputChange}
           onImageUrlSubmit={this.onImageUrlSubmit}
           imageUrl={imageUrl} 
           boxes={boxes} 
@@ -264,16 +280,15 @@ class App extends Component {
         />
         break;
       case 'register':
-        const AsyncRegister = AsyncComponent(() => import('./components/Register/Register'));
+        const AsyncRegister = AsyncComponent(() => import('./Register/Register'));
         content = 
         <AsyncRegister 
-          database={DATABASE}
           loadUser={this.loadUser}
           onRouteChange={this.onRouteChange}
         />
         break;
       case 'profile':
-        const AsyncProfile = AsyncComponent(() => import('./components/Profile/Profile'));
+        const AsyncProfile = AsyncComponent(() => import('./Profile/Profile'));
         content = 
         <AsyncProfile 
           database={DATABASE}
@@ -288,7 +303,6 @@ class App extends Component {
       default:
         content =
         <SignIn 
-          database={DATABASE}
           loadUser={this.loadUser}
           onRouteChange={this.onRouteChange} 
         />
@@ -296,10 +310,10 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <Particles
+        {/* <Particles
           className='particles' 
           params={particlesOptions}
-        />
+        /> */}
         <Header 
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange} 
@@ -312,4 +326,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

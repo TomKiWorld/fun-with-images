@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Profile.css';
-import ImageCard from '../ImageCard/ImageCard';
-import Wiggle from '../Wiggle/Wiggle';
+import ImageCard from '../../components/ImageCard/ImageCard';
+import Wiggle from '../../components/Wiggle/Wiggle';
 
 /**
  * User Profile

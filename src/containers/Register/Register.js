@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import FormInput from '../FormFields/FormInput/FormInput';
-import FormSubmit from '../FormFields/FormSubmit/FormSubmit';
+import FormInput from '../../components/FormFields/FormInput/FormInput';
+import FormSubmit from '../../components/FormFields/FormSubmit/FormSubmit';
+import { DATABASE } from '../../constants';
 
 /**
  * Register component
@@ -94,7 +95,7 @@ class Register extends Component {
     }  
 
     if ( validName && validEmail && validPassword ) {
-      fetch(`${this.props.database}/register`, {
+      fetch(`${DATABASE}/register`, {
         method: 'post',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({

@@ -112,7 +112,7 @@ class App extends Component {
     });
     window.setTimeout(() => {
       this.onImageUrlSubmit();
-    }, 1000);
+    }, 500);
   }
 
   // Fetch the colors from the colors API and set state

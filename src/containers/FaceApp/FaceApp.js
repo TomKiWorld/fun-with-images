@@ -16,9 +16,7 @@ import ColorList from '../../components/ColorList/ColorList'
  * - onImageUrlSubmi => Function on url submit
  * - imageUrl => The image url from state
  * - boxes => Location of faces on the page
- * - toggleColorList => Function to toggle list of found colors
  * - colors => List of colors found by the API
- * - showColorList => Boolean to show or hide the colors pop up from state
  */
 class FaceApp extends Component {
   constructor() {
@@ -31,7 +29,6 @@ class FaceApp extends Component {
   // Toggle the color list pop up
   toggleColorList = () => {
     this.setState({showColorList: !this.state.showColorList});
-
   }
    
   render() {

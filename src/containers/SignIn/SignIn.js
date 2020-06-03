@@ -65,7 +65,7 @@ class SignIn extends Component {
       this.setState({loginError: 'Please make sure both fields are entered'});
     }
   }
- 
+
   // Sign in as visitor
   onSubmitVisitor = (e) => {
     e.preventDefault();

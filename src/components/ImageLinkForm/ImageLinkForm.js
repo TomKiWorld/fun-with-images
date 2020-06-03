@@ -40,9 +40,9 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, getColors
           >Detect</button>
         </div>
       </div>
-        {imageUrlError}
-        {getColorsError}
-        {getFacesError}
+      {imageUrlError}
+      {getColorsError}
+      {getFacesError}
     </div>
   );
 }

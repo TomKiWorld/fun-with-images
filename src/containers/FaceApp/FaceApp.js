@@ -23,7 +23,15 @@ import ColorList from '../../components/ColorList/ColorList'
 class FaceApp extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      showColorList: false
+    };
+  }
+
+  // Toggle the color list pop up
+  toggleColorList = () => {
+    this.setState({showColorList: !this.state.showColorList});
+
   }
    
   render() {
@@ -37,10 +45,9 @@ class FaceApp extends Component {
       onImageUrlSubmit,
       imageUrl,
       boxes,
-      toggleColorList,
-      colors,
-      showColorList
+      colors
     } = this.props;
+    const { showColorList } = this.state;
     return (
       <article className='pa4 mb4'>
         <Greet 
@@ -56,11 +63,11 @@ class FaceApp extends Component {
         <FaceRecognition 
           imageUrl={imageUrl} 
           boxes={boxes} 
-          onShowClick={toggleColorList} />
+          onShowClick={this.toggleColorList} />
         <ColorList 
           colors={colors}
           showColor={showColorList}
-          onShowClick={toggleColorList} />
+          onShowClick={this.toggleColorList} />
       </article>
     );
   }

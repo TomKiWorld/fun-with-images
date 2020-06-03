@@ -73,8 +73,8 @@ class SignIn extends Component {
       method: 'post',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
-        email: 'tester@gmail.com',
-password: 'tester'
+        email: 'visitor@gmail.com',
+        password: 'visit'
       })
     })
     .then(response => response.json())

@@ -6,7 +6,7 @@ import Header from '../components/Header/Header';
 import SignIn from './SignIn/SignIn';
 import Footer from '../components/Footer/Footer';
 import { DATABASE } from '../constants';
-import { setInputValue, resubmitImageInput } from '../actions';
+import { setInputValue, resubmitImageInput, setImageUrl, setImageUrlErr } from '../actions';
 
 const FaceApp= React.lazy(() => import('./FaceApp/FaceApp'));
 const Register= React.lazy(() => import('./Register/Register'));
@@ -14,14 +14,18 @@ const Profile= React.lazy(() => import('./Profile/Profile'));
 
 const mapStateToProps = (state) => {
   return {
-    inputValue: state.inputValue
+    inputValue: state.inputValue,
+    imageUrl: state.imageUrl,
+    imageUrlError: state.imageUrlError
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onInputChange: (event) => dispatch(setInputValue(event.target.value)),
-    onResubmitInput: (text) => dispatch(resubmitImageInput(text))
+    onResubmitInput: (text) => dispatch(resubmitImageInput(text)),
+    onImageChange: (text) => dispatch(setImageUrl(text)),
+    onImageError: (text) => dispatch(setImageUrlErr(text))
   }
 }
 
@@ -40,8 +44,6 @@ const particlesOptions = {
 
 // Initiale state for reset during logout
 const initalState = {
-  imageUrl: '',
-  imageUrlError: '',
   getColorsError: '',
   getFacesError: '',
   colors: [],
@@ -77,23 +79,21 @@ class App extends Component {
   onImageUrlSubmit = () => {
     if (this.props.inputValue) {
       const regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-      if (this.props.inputValue !== this.state.imageUrl) {
+      if (this.props.inputValue !== this.props.imageUrl) {
         if (regexp.test(this.props.inputValue)) {
-          this.setState({
-            imageUrl: this.props.inputValue,
-            imageUrlError: ''
-          });
+          this.props.onImageChange(this.props.inputValue);
+          this.props.onImageError('');
           document.querySelectorAll('.bounding-box').forEach(el => el.remove());
           this.getColors();
           this.getFaces();
         } else {
-          this.setState({imageUrlError: 'Please enter a valid url'});
+          this.props.onImageError('Please enter a valid url');
         }        
       } else {
-        this.setState({imageUrlError: 'Please enter a new url'});
+        this.props.onImageError('Please enter a new url');
       } 
     } else {
-      this.setState({imageUrlError: 'Please enter an image url'});
+      this.props.onImageError('Please enter an image url');
     }    
   }
 
@@ -101,10 +101,8 @@ class App extends Component {
   onImageResubmit = (url) => {
     this.props.onResubmitInput(url);
     this.onRouteChange('home');
-    this.setState({
-      imageUrl: '',
-      imageUrlError: ''
-    });
+    this.props.onImageChange('');
+    this.props.onImageError('');
     window.setTimeout(() => {
       this.onImageUrlSubmit();
     }, 500);
@@ -133,7 +131,7 @@ class App extends Component {
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
           id: this.state.user.id,
-          url: this.state.imageUrl
+          url: this.props.imageUrl
         })
       })
       .then(response => response.json())
@@ -224,17 +222,15 @@ class App extends Component {
       setInputValue('');
     }
     if (route === 'home') {
-      this.setState({
-        imageUrl: '',
-        imageUrlError: ''
-      });
+      this.props.onImageChange('');
+      this.props.onImageError('');
     }
     this.setState({route: route})
   }
 
   render() {
-    const { isSignedIn, imageUrl, boxes, colors, route } = this.state;
-    const imageUrlError = this.state.imageUrlError ? <p className='error-message'>{this.state.imageUrlError}</p> : '';
+    const { isSignedIn, boxes, colors, route } = this.state;
+    const imageUrlError = this.props.imageUrlError ? <p className='error-message'>{this.props.imageUrlError}</p> : '';
     const getColorsError = this.state.getColorsError ? <p className='error-message'>{this.state.getColorsError}</p> : '';
     const getFacesError = this.state.getFacesError ? <p className='error-message'>{this.state.getFacesError}</p> : '';
     const { inputValue, onInputChange } = this.props;
@@ -252,7 +248,7 @@ class App extends Component {
             getFacesError={getFacesError}
             onInputChange={onInputChange}
             onImageUrlSubmit={this.onImageUrlSubmit}
-            imageUrl={imageUrl} 
+            imageUrl={this.props.imageUrl} 
             boxes={boxes}
             colors={colors}
           />

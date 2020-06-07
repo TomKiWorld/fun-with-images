@@ -1,11 +1,11 @@
 import React from 'react';
-import './Logo.css';
-import funImages from './funImg.png';
+import './AnimatedLogo.css';
+import funImages from './funGif.gif';
 
 /**
  * Site logo
  */
-const Logo = () => {
+const AnimatedLogo = () => {
   return (
     <div className='Logo'>
       <img src={funImages} alt='logo'/>
@@ -13,4 +13,4 @@ const Logo = () => {
   );
 }
 
-export default Logo;
+export default AnimatedLogo;

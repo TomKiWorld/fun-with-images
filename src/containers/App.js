@@ -40,6 +40,7 @@ const particlesOptions = {
 
 // Initiale state for reset during logout
 const initalState = {
+  loaded: false,
   imageUrl: '',
   imageUrlError: '',
   getColorsError: '',
@@ -60,6 +61,10 @@ class App extends Component {
   constructor() {
     super();
     this.state = initalState;
+  }
+
+  componentDidMount() {
+    this.setState({loaded: true})
   }
 
   // Set the user from the response into state
@@ -233,7 +238,7 @@ class App extends Component {
   }
 
   render() {
-    const { isSignedIn, imageUrl, boxes, colors, route } = this.state;
+    const { isSignedIn, imageUrl, boxes, colors, route, loaded } = this.state;
     const imageUrlError = this.state.imageUrlError ? <p className='error-message'>{this.state.imageUrlError}</p> : '';
     const getColorsError = this.state.getColorsError ? <p className='error-message'>{this.state.getColorsError}</p> : '';
     const getFacesError = this.state.getFacesError ? <p className='error-message'>{this.state.getFacesError}</p> : '';
@@ -296,6 +301,7 @@ class App extends Component {
           params={particlesOptions}
         />
         <Header 
+          loaded={loaded}
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange} 
           route={this.state.route}

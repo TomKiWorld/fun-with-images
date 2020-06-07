@@ -93,7 +93,7 @@ class Profile extends Component {
 
     return(
       <article className='profile pa4 mb4'>
-        <h2>Hi <span className='capitalize'>{userName}</span></h2>
+        <h1>Hi <span className='capitalize'>{userName}</span></h1>
         {greet}
         {removeButton}
         <section className='images-container'>

@@ -13,7 +13,8 @@ const Greet = ({name, entries}) => {
   return (
     <div>
       <div className='white f3'>
-        <p>{greet} <span className='capitalize'>{name}</span>, your current entry count is:</p>
+        <h1>{greet} <span className='capitalize'>{name}</span></h1>
+        <p>Your current entry count is:</p>
       </div>
       <div className='white f1'>
         <p>#{entries}</p>

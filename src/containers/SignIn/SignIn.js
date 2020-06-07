@@ -55,7 +55,6 @@ class SignIn extends Component {
       .then(user => {
         if (user.id) {
           this.props.loadUser(user);
-          this.setState({loginError: ''});
           this.props.onRouteChange('home');
         } else {
           this.setState({loginError: user});

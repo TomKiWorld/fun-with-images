@@ -6,7 +6,7 @@ import Header from '../components/Header/Header';
 import SignIn from './SignIn/SignIn';
 import Footer from '../components/Footer/Footer';
 import { DATABASE } from '../constants';
-import { setInputValue, resubmitImageInput, setImageUrl, setImageUrlErr } from '../actions';
+import { setInputValue, resubmitImageInput, setImageUrl, setImageUrlErr, setUser, setEntries } from '../actions';
 
 const FaceApp= React.lazy(() => import('./FaceApp/FaceApp'));
 const Register= React.lazy(() => import('./Register/Register'));
@@ -14,9 +14,10 @@ const Profile= React.lazy(() => import('./Profile/Profile'));
 
 const mapStateToProps = (state) => {
   return {
-    inputValue: state.inputValue,
-    imageUrl: state.imageUrl,
-    imageUrlError: state.imageUrlError
+    inputValue: state.imageUrlInputValue.inputValue,
+    imageUrl: state.imageUrlInputValue.imageUrl,
+    imageUrlError: state.imageUrlInputValue.imageUrlError,
+    user: state.userInformation.user
   }
 }
 
@@ -25,7 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     onInputChange: (event) => dispatch(setInputValue(event.target.value)),
     onResubmitInput: (text) => dispatch(resubmitImageInput(text)),
     onImageChange: (text) => dispatch(setImageUrl(text)),
-    onImageError: (text) => dispatch(setImageUrlErr(text))
+    onImageError: (text) => dispatch(setImageUrlErr(text)),
+    onUserLoad: (data) => dispatch(setUser(data)),
+    onEntriesUpdate: (number) => dispatch(setEntries(number))
   }
 }
 
@@ -48,14 +51,7 @@ const initalState = {
   getFacesError: '',
   colors: [],
   route: 'signin',
-  isSignedIn: false,
-  user: {
-    id: '',
-    name: '',
-    email: '',
-    entries: 0,
-    joined: ''
-  }
+  isSignedIn: false
 }
 
 class App extends Component {
@@ -130,13 +126,13 @@ class App extends Component {
         method: 'put',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
-          id: this.state.user.id,
+          id: this.props.user.id,
           url: this.props.imageUrl
         })
       })
       .then(response => response.json())
       .then(count => {
-        this.setState(Object.assign(this.state.user, { entries: count }));
+        this.props.onEntriesUpdate(count);
       })
       .catch(err => console.log('getFaces colors: ', err))
       
@@ -233,15 +229,15 @@ class App extends Component {
     const imageUrlError = this.props.imageUrlError ? <p className='error-message'>{this.props.imageUrlError}</p> : '';
     const getColorsError = this.state.getColorsError ? <p className='error-message'>{this.state.getColorsError}</p> : '';
     const getFacesError = this.state.getFacesError ? <p className='error-message'>{this.state.getFacesError}</p> : '';
-    const { inputValue, onInputChange } = this.props;
+    const { inputValue, onInputChange, user } = this.props;
     let content = '';
     switch(route) {
       case 'home':
         content = 
         <Suspense fallback={<div>Loading...</div>}>
           <FaceApp
-            userName={this.state.user.name}
-            entries={this.state.user.entries}
+            userName={user.name}
+            entries={user.entries}
             inputValue={inputValue}
             imageUrlError={imageUrlError}
             getColorsError={getColorsError}
@@ -258,7 +254,7 @@ class App extends Component {
         content = 
         <Suspense fallback={<div>Loading...</div>}>
           <Register 
-            loadUser={this.loadUser}
+            loadUser={this.props.onUserLoad}
             onRouteChange={this.onRouteChange}
           />
         </Suspense>
@@ -268,10 +264,10 @@ class App extends Component {
         <Suspense fallback={<div>Loading...</div>}>
           <Profile 
             database={DATABASE}
-            userId={this.state.user.id}
-            userName={this.state.user.name}
-            userEmail={this.state.user.email}
-            entries={this.state.user.entries}
+            userId={user.id}
+            userName={user.name}
+            userEmail={user.email}
+            entries={user.entries}
             onRouteChange={this.onRouteChange}
             onResubmit={this.onImageResubmit}
           />
@@ -280,7 +276,7 @@ class App extends Component {
       default:
         content =
         <SignIn 
-          loadUser={this.loadUser}
+          loadUser={this.props.onUserLoad}
           onRouteChange={this.onRouteChange} 
         />
     }

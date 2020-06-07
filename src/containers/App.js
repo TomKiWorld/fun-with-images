@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import Particles from 'react-particles-js';
 import Header from '../components/Header/Header';
-import AsyncComponent from '../HOC/AsyncComponent/AsyncComponent';
 import SignIn from './SignIn/SignIn';
-import FaceApp from './FaceApp/FaceApp';
 import Footer from '../components/Footer/Footer';
 import { DATABASE } from '../constants';
 import { setInputValue, resubmitImageInput } from '../actions';
+
+const FaceApp= React.lazy(() => import('./FaceApp/FaceApp'));
+const Register= React.lazy(() => import('./Register/Register'));
+const Profile= React.lazy(() => import('./Profile/Profile'));
 
 const mapStateToProps = (state) => {
   return {
@@ -26,13 +28,6 @@ const mapDispatchToProps = (dispatch) => {
 // Options for the particals component
 const particlesOptions = {
   particles: {
-    line_linked: {
-      shadow: {
-        enable: true,
-        color: "#3CA9D1",
-        blur: 5
-      }
-    },
     number: {
       value: 30,
       density: {
@@ -247,40 +242,44 @@ class App extends Component {
     switch(route) {
       case 'home':
         content = 
-        <FaceApp 
-          userName={this.state.user.name}
-          entries={this.state.user.entries}
-          inputValue={inputValue}
-          imageUrlError={imageUrlError}
-          getColorsError={getColorsError}
-          getFacesError={getFacesError}
-          onInputChange={onInputChange}
-          onImageUrlSubmit={this.onImageUrlSubmit}
-          imageUrl={imageUrl} 
-          boxes={boxes}
-          colors={colors}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FaceApp
+            userName={this.state.user.name}
+            entries={this.state.user.entries}
+            inputValue={inputValue}
+            imageUrlError={imageUrlError}
+            getColorsError={getColorsError}
+            getFacesError={getFacesError}
+            onInputChange={onInputChange}
+            onImageUrlSubmit={this.onImageUrlSubmit}
+            imageUrl={imageUrl} 
+            boxes={boxes}
+            colors={colors}
+          />
+        </Suspense>
         break;
       case 'register':
-        const AsyncRegister = AsyncComponent(() => import('./Register/Register'));
         content = 
-        <AsyncRegister 
-          loadUser={this.loadUser}
-          onRouteChange={this.onRouteChange}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Register 
+            loadUser={this.loadUser}
+            onRouteChange={this.onRouteChange}
+          />
+        </Suspense>
         break;
       case 'profile':
-        const AsyncProfile = AsyncComponent(() => import('./Profile/Profile'));
         content = 
-        <AsyncProfile 
-          database={DATABASE}
-          userId={this.state.user.id}
-          userName={this.state.user.name}
-          userEmail={this.state.user.email}
-          entries={this.state.user.entries}
-          onRouteChange={this.onRouteChange}
-          onResubmit={this.onImageResubmit}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Profile 
+            database={DATABASE}
+            userId={this.state.user.id}
+            userName={this.state.user.name}
+            userEmail={this.state.user.email}
+            entries={this.state.user.entries}
+            onRouteChange={this.onRouteChange}
+            onResubmit={this.onImageResubmit}
+          />
+        </Suspense>
         break;
       default:
         content =

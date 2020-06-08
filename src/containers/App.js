@@ -68,41 +68,50 @@ class App extends Component {
     this.setState({route: route})
   }
 
+  renderContent(route) {
+    switch(route) {
+      case 'signin':
+        return (
+          <SignIn 
+            loadUser={this.props.onUserLoad}
+            onRouteChange={this.onRouteChange} 
+          />
+        );
+      case 'home':
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <FaceApp />
+          </Suspense>
+        );
+      case 'register':
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Register 
+              loadUser={this.props.onUserLoad}
+              onRouteChange={this.onRouteChange}
+            />
+          </Suspense>
+        );
+      case 'profile':
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Profile
+              onRouteChange={this.onRouteChange}
+            />
+          </Suspense>
+        );
+      default:
+        return (
+          <SignIn 
+            loadUser={this.props.onUserLoad}
+            onRouteChange={this.onRouteChange} 
+          />
+        );
+    }
+  }
+
   render() {
     const { isSignedIn, route } = this.state;
-    const { onUserLoad } = this.props;
-    let content = '';
-    switch(route) {
-      case 'home':
-        content = 
-        <Suspense fallback={<div>Loading...</div>}>
-          <FaceApp />
-        </Suspense>
-        break;
-      case 'register':
-        content = 
-        <Suspense fallback={<div>Loading...</div>}>
-          <Register 
-            loadUser={onUserLoad}
-            onRouteChange={this.onRouteChange}
-          />
-        </Suspense>
-        break;
-      case 'profile':
-        content = 
-        <Suspense fallback={<div>Loading...</div>}>
-          <Profile
-            onRouteChange={this.onRouteChange}
-          />
-        </Suspense>
-        break;
-      default:
-        content =
-        <SignIn 
-          loadUser={onUserLoad}
-          onRouteChange={this.onRouteChange} 
-        />
-    }
 
     return (
       <div className='App'>
@@ -115,7 +124,7 @@ class App extends Component {
           onRouteChange={this.onRouteChange} 
           route={route}
           />
-        { content }
+        { this.renderContent(route)}
         <Footer />
       </div>
     );

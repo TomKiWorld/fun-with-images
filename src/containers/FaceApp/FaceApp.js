@@ -30,9 +30,6 @@ const mapDispatchToProps = (dispatch) => {
 
 /**
  * Main view of the fun with images app
- * 
- * Required props:
- * - user => User from Redux state
  */
 class FaceApp extends Component {
   constructor() {

@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
 const particlesOptions = {
   particles: {
     number: {
-      value: 60,
+      value: 50,
       density: {
         enable: true,
         value_area: 500
@@ -70,7 +70,7 @@ class App extends Component {
 
   render() {
     const { isSignedIn, route } = this.state;
-    const { user, onUserLoad } = this.props;
+    const { onUserLoad } = this.props;
     let content = '';
     switch(route) {
       case 'home':

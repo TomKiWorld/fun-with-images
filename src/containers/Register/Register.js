@@ -47,19 +47,9 @@ class Register extends Component {
     return string.replace(reg, (match)=>(map[match]));
   }
 
-  // Set name on input change
-  onNameChange = (event) => {
-    this.setState({name: event.target.value })
-  }
-
-  // Set email on input change
-  onEmailChange = (event) => {
-    this.setState({email: event.target.value })
-  }
-
-  // Set password on input change
-  onPasswordChange = (event) => {
-    this.setState({password: event.target.value })
+  // Set state on input change
+  onFieldChange = (event, term) => {
+    this.setState({[term]: event.target.value })
   }
 
   // Validate user input and register the user
@@ -130,12 +120,12 @@ class Register extends Component {
         <form className='pa4 black-80'>
           <div className='measure'>
             <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>
-              <legend className='f1 fw6 ph0 mh0'>Register</legend>
+              <h1 className='f1 fw6 ph0 mh0'>Register</h1>
               <FormInput 
                 label='Name'
                 name='name'
                 type='text'
-                onChange={this.onNameChange}
+                onChange={(e) => this.onFieldChange(e, 'name')}
                 onKeyUp={this.handleKeyUp}
               />
               {nameError}
@@ -143,7 +133,7 @@ class Register extends Component {
                 label='Email'
                 name='email-address'
                 type='email'
-                onChange={this.onEmailChange}
+                onChange={(e) => this.onFieldChange(e, 'email')}
                 onKeyUp={this.handleKeyUp}
               />
               {emailError}
@@ -151,7 +141,7 @@ class Register extends Component {
                 label='Password'
                 name='password'
                 type='password'
-                onChange={this.onPasswordChange}
+                onChange={(e) => this.onFieldChange(e, 'password')}
                 onKeyUp={this.handleKeyUp}
               />
               {passwordError}

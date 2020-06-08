@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { DATABASE } from '../../constants';
+import { resubmitImageInput, resubmitImageUrl, setImageUrl, setImageUrlErr } from '../../actions';
+
 import './Profile.css';
 import ImageCard from '../../components/ImageCard/ImageCard';
 import Wiggle from '../../components/Wiggle/Wiggle';
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.userInformation.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onResubmitInput: (text) => dispatch(resubmitImageInput(text)),
+    onResubmitImageUrl: (bool) => dispatch(resubmitImageUrl(bool)),
+    onImageChange: (text) => dispatch(setImageUrl(text)),
+    onImageError: (text) => dispatch(setImageUrlErr(text))
+  }
+}
 
 /**
  * User Profile
@@ -11,10 +30,8 @@ import Wiggle from '../../components/Wiggle/Wiggle';
  * - Allowes the user to delete his/ hers profile from the database
  * 
  * Required props:
- * - userId => User id from state
- * - userEmail => User email from state
- * - userName => User name from state
- * - entries => Amount of times images were submitted from state
+ * - user => User from Redux state
+ * - onRouteChange => Function to change route
  * - onResubmit => Function to handle resubmission of images
  */
 class Profile extends Component {
@@ -27,7 +44,7 @@ class Profile extends Component {
 
   // Fetch user submitted images from dtatebase
   componentDidMount() {
-    fetch(`${this.props.database}/profile-images/${this.props.userId}`)
+    fetch(`${DATABASE}/profile-images/${this.props.user.id}`)
     .then(response => response.json())
     .then(data => {
       if(data.length) {
@@ -37,14 +54,23 @@ class Profile extends Component {
     .catch(err => console.log('Could not fetch images'));
   }
 
+  // Resubmit an image from the profile page
+  onImageResubmit = (url) => {
+    this.props.onResubmitInput(url);
+    this.props.onRouteChange('home');
+    this.props.onImageChange('');
+    this.props.onImageError('');
+    this.props.onResubmitImageUrl(true);
+  }
+
   // Delete the profile only in case profile is not 'Visitor'
   onSubmitRemoval = () => {
-    fetch(`${this.props.database}/profile-removal/${this.props.userId}`, {
+    fetch(`${DATABASE}/profile-removal/${this.props.user.id}`, {
       method: 'post',
       headers: {'Content-type': 'application/json'},
       body: JSON.stringify({
-        email: this.props.userEmail,
-        id: this.props.userId
+        email: this.props.user.email,
+        id: this.props.user.id
       })
     })
     .then(response => response.json())
@@ -56,24 +82,24 @@ class Profile extends Component {
   }
 
   render() {
-    const { userId, userName, entries, onResubmit } = this.props;
-    const removeButton = userId !== 1 ? 
+    const { user } = this.props;
+    const removeButton = user.id !== 1 ? 
       <button 
         className='remove-button'
         onClick={this.onSubmitRemoval}
         >Delete your profile</button> 
         : '';
 
-    const greet = entries > 0 ?  
+    const greet = user.entries > 0 ?  
       <div>
-        <p>Thank you for using the app {entries} times so far!!</p> 
+        <p>Thank you for using the app {user.entries} times so far!!</p> 
         <h3>The following images were submitted by you:</h3>
         <p>Note: Some images might have been submitted multipale times</p>
       </div> 
       : 
       <h3>You haven't submitted any images yet.. </h3>;
 
-    let images = entries > 0 ? <p>Loading...</p> : <p>Go ahead and submit <span role='img' aria-label='Smirking Face'>😏</span></p>
+    let images = user.entries > 0 ? <p>Loading...</p> : <p>Go ahead and submit <span role='img' aria-label='Smirking Face'>😏</span></p>
     if (this.state.images.length) {
       images = this.state.images.map(image => {
         return (
@@ -84,7 +110,7 @@ class Profile extends Component {
                 key={image.id}
                 id={image.id}
                 url={image.url}
-                onResubmit={onResubmit}
+                onResubmit={this.onImageResubmit}
               />
           </Wiggle>
         )        
@@ -93,7 +119,7 @@ class Profile extends Component {
 
     return(
       <article className='profile pa4 mb4'>
-        <h2>Hi <span className='capitalize'>{userName}</span></h2>
+        <h1>Hi <span className='capitalize'>{user.name}</span></h1>
         {greet}
         {removeButton}
         <section className='images-container'>
@@ -104,4 +130,4 @@ class Profile extends Component {
   }
 }
   
-export default Profile;
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

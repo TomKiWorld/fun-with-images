@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import { imageUrlInputValue } from './reducers';
+import { imageUrlInputValue, userInformation } from './reducers';
 import 'tachyons';
 
-const store = createStore(imageUrlInputValue);
+const rootReducer = combineReducers({ imageUrlInputValue, userInformation });
+const store = createStore(rootReducer);
 
 ReactDOM.render(
   <React.StrictMode>

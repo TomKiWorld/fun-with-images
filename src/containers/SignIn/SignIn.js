@@ -29,26 +29,21 @@ class SignIn extends Component {
     }
   }
 
-  // Set email on input change
-  onEmailChange = (event) => {
-    this.setState({signInEmail: event.target.value })
+  // Set state on input change
+  onFieldChange = (event, term) => {
+    this.setState({[term]: event.target.value })
   }
 
-  // Set password on input change
-  onPasswordChange = (event) => {
-    this.setState({signInPassword: event.target.value })
-  }
-
-  // Check for user in database and login 
-  onSubmitSignIn = (e) => {
+  // Sign in 
+  onSubmitSignIn = (e, email, password) => {
     e.preventDefault();
-    if ((this.state.signInEmail !== '') && (this.state.signInPassword !== '')) {
+    if ((email !== '') && (password !== '')) {
       fetch(`${DATABASE}/signin`, {
         method: 'post',
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
-          email: this.state.signInEmail,
-          password: this.state.signInPassword
+          email: email,
+          password: password
         })
       })
       .then(response => response.json())
@@ -65,26 +60,6 @@ class SignIn extends Component {
     }
   }
 
-  // Sign in as visitor
-  onSubmitVisitor = (e) => {
-    e.preventDefault();
-    fetch(`${DATABASE}/signin`, {
-      method: 'post',
-      headers: {'Content-type': 'application/json'},
-      body: JSON.stringify({
-        email: 'visitor@gmail.com',
-        password: 'visit'
-      })
-    })
-    .then(response => response.json())
-    .then(user => {
-      if (user.id) {
-        this.props.loadUser(user);
-        this.props.onRouteChange('home');
-      }
-    })
-  }
-
   render() {
     const { onRouteChange } = this.props;
     const loginError = this.state.loginError ? <p className='error-message'>{this.state.loginError}</p> : '';
@@ -99,7 +74,7 @@ class SignIn extends Component {
                 label='Email'
                 name='email-address'
                 type='email'
-                onChange={this.onEmailChange}
+                onChange={(e) => this.onFieldChange(e, 'signInEmail')}
                 onKeyUp={this.handleKeyUp}
                 extraClass='inputField'
               />
@@ -107,7 +82,7 @@ class SignIn extends Component {
                 label='Password'
                 name='password'
                 type='password'
-                onChange={this.onPasswordChange}
+                onChange={(e) => this.onFieldChange(e, 'signInPassword')}
                 onKeyUp={this.handleKeyUp}
                 extraClass='inputField'
               />
@@ -116,14 +91,13 @@ class SignIn extends Component {
             <FormSubmit
               value='Sign in'
               type='submit'
-              onClick={this.onSubmitSignIn}
+              onClick={(e) => this.onSubmitSignIn(e, this.state.signInEmail, this.state.signInPassword)}
               extraClass='signIn'
             />
             <FormSubmit
               value='Log in as Visitor'
               type='submit'
-              onClick={this.onSubmitVisitor}
-              // extraClass=''
+              onClick={(e) => this.onSubmitSignIn(e, 'tester@gmail.com', 'tester')}
             />
             <div className='lh-copy mt3'>
               <p 

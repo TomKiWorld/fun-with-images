@@ -1,8 +1,9 @@
 import {
   CHANGE_INPUT_VALUE,
-  RESUBMIT_INPUT_VALUE,
   SET_IMAGE_URL,
   SET_IMAGE_URL_ERROR,
+  RESUBMIT_INPUT_VALUE,
+  RESUBMIT_IMAGE_URL,
   CHANGE_USER,
   SET_USER_ENTRIES
 } from './constants';
@@ -18,6 +19,13 @@ export const resubmitImageInput = (text) => {
   return {
     type: RESUBMIT_INPUT_VALUE,
     payload: text
+  }
+};
+
+export const resubmitImageUrl = (bool) => {
+  return {
+    type: RESUBMIT_IMAGE_URL,
+    payload: bool
   }
 };
 
@@ -42,9 +50,12 @@ export const setUser = (data) => {
   }
 };
 
-export const setEntries = (number) => {
+export const setEntries = (user, count) => {
   return {
     type: SET_USER_ENTRIES,
-    payload: number
+    payload: {
+      user,
+      count
+    }
   }
 };

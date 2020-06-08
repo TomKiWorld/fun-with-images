@@ -31,7 +31,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, getColors
             className='f4 pa2 w-70 center' 
             value={inputValue}
             type='url' 
-            onChange={onInputChange}
+            onChange={(e) => onInputChange(e.target.value)}
             onKeyUp={(e) => handleKeyUp(e)}
           />
           <button 

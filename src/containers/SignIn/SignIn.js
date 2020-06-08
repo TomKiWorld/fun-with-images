@@ -97,7 +97,7 @@ class SignIn extends Component {
             <FormSubmit
               value='Log in as Visitor'
               type='submit'
-              onClick={(e) => this.onSubmitSignIn(e, 'tester@gmail.com', 'tester')}
+              onClick={(e) => this.onSubmitSignIn(e, 'visitor@gmail.com', 'visit')}
             />
             <div className='lh-copy mt3'>
               <p 

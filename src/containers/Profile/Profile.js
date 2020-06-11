@@ -1,26 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { DATABASE } from '../../constants';
-import { resubmitImageInput, resubmitImageUrl, setImageUrl, setImageUrlErr } from '../../actions';
 
 import './Profile.css';
-import ImageCard from '../../components/ImageCard/ImageCard';
-import Wiggle from '../../components/Wiggle/Wiggle';
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.userInformation.user
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onResubmitInput: (text) => dispatch(resubmitImageInput(text)),
-    onResubmitImageUrl: (bool) => dispatch(resubmitImageUrl(bool)),
-    onImageChange: (text) => dispatch(setImageUrl(text)),
-    onImageError: (text) => dispatch(setImageUrlErr(text))
-  }
-}
+import ImageList from '../../components/ImageList/ImageList';
+import Preloader from '../../components/Preloader/Preloader';
+import ProfileGreet from '../../components/ProfileGreet/ProfileGreet';
 
 /**
  * User Profile
@@ -35,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
  * - onResubmit => Function to handle resubmission of images
  */
 class Profile extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       images: []
@@ -44,7 +28,12 @@ class Profile extends Component {
 
   // Fetch user submitted images from dtatebase
   componentDidMount() {
-    fetch(`${DATABASE}/profile-images/${this.props.user.id}`)
+    this.getProfileImages();
+  }
+
+  // Get profile images
+  getProfileImages = () => {
+    return fetch(`${DATABASE}/profile-images/${this.props.user.id}`)
     .then(response => response.json())
     .then(data => {
       if(data.length) {
@@ -81,47 +70,36 @@ class Profile extends Component {
     .catch(err => alert('Unable to remove profile'));
   }
 
-  render() {
-    const { user } = this.props;
-    const removeButton = user.id !== 1 ? 
-      <button 
+  showRemoveButton = (id) => {
+    if (id !== 1) {
+      return (
+        <button 
         className='remove-button'
         onClick={this.onSubmitRemoval}
         >Delete your profile</button> 
-        : '';
+      )
+    } else {
+      return <button className='remove-button'>You can not remove this profile</button>
+    }
+  }
 
-    const greet = user.entries > 0 ?  
-      <div>
-        <p>Thank you for using the app {user.entries} times so far!!</p> 
-        <h3>The following images were submitted by you:</h3>
-        <p>Note: Some images might have been submitted multipale times</p>
-      </div> 
-      : 
-      <h3>You haven't submitted any images yet.. </h3>;
-
-    let images = user.entries > 0 ? <p>Loading...</p> : <p>Go ahead and submit <span role='img' aria-label='Smirking Face'>😏</span></p>
+  render() {
+    const { user } = this.props;
+    let images = user.entries > 0 ? 
+      <Preloader /> : 
+      <p>Go ahead and submit <span role='img' aria-label='Smirking Face'>😏</span></p>;
     if (this.state.images.length) {
-      images = this.state.images.map(image => {
-        return (
-          <Wiggle
-            key={image.id}
-            elementId= {`ImageCard-${image.id}`}>
-              <ImageCard
-                key={image.id}
-                id={image.id}
-                url={image.url}
-                onResubmit={this.onImageResubmit}
-              />
-          </Wiggle>
-        )        
-      });
+      images = 
+        <ImageList 
+          images={this.state.images} 
+          onResubmit={this.onImageResubmit}/>
     }
 
     return(
       <article className='profile pa4 mb4'>
         <h1>Hi <span className='capitalize'>{user.name}</span></h1>
-        {greet}
-        {removeButton}
+        <ProfileGreet entries={user.entries} />
+        {this.showRemoveButton(user.id)}
         <section className='images-container'>
           {images}
         </section>
@@ -130,4 +108,4 @@ class Profile extends Component {
   }
 }
   
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

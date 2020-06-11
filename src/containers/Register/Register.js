@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormInput from '../../components/FormFields/FormInput/FormInput';
 import FormSubmit from '../../components/FormFields/FormSubmit/FormSubmit';
+import Preloader from '../../components/Preloader/Preloader';
 import { DATABASE } from '../../constants';
 
 /**
@@ -12,7 +13,7 @@ import { DATABASE } from '../../constants';
  * - onRouteChange => Function to change the state of route
  */
 class Register extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       name: '',
@@ -21,15 +22,8 @@ class Register extends Component {
       nameError: '',
       emailError: '',
       passwordError: '',
-      registerError: ''
-    }
-  }
-
-  // Allow pressing the enter key and not only the button
-  handleKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      const register = document.querySelector('.register');
-      register.click();
+      registerError: '',
+      loading: false
     }
   }
 
@@ -85,6 +79,7 @@ class Register extends Component {
     }  
 
     if ( validName && validEmail && validPassword ) {
+      this.setState({loading: true})
       fetch(`${DATABASE}/register`, {
         method: 'post',
         headers: {'Content-type': 'application/json'},
@@ -114,6 +109,7 @@ class Register extends Component {
     const emailError = this.state.emailError ? <p className='error-message'>{this.state.emailError}</p> : '';
     const passwordError = this.state.passwordError ? <p className='error-message'>{this.state.passwordError}</p> : '';
     const registerError = this.state.registerError ? <p className='error-message'>{this.state.registerError}</p> : '';
+    const preload = this.state.loading ? <Preloader/> : '';
 
     return (
       <article className='register br3 ba dark-gray b--black-10 mv4 mw6 shadow-5 center'>
@@ -126,7 +122,6 @@ class Register extends Component {
                 name='name'
                 type='text'
                 onChange={(e) => this.onFieldChange(e, 'name')}
-                onKeyUp={this.handleKeyUp}
               />
               {nameError}
               <FormInput 
@@ -134,7 +129,6 @@ class Register extends Component {
                 name='email-address'
                 type='email'
                 onChange={(e) => this.onFieldChange(e, 'email')}
-                onKeyUp={this.handleKeyUp}
               />
               {emailError}
               <FormInput 
@@ -142,7 +136,6 @@ class Register extends Component {
                 name='password'
                 type='password'
                 onChange={(e) => this.onFieldChange(e, 'password')}
-                onKeyUp={this.handleKeyUp}
               />
               {passwordError}
             </fieldset>
@@ -154,7 +147,8 @@ class Register extends Component {
             />
             {registerError}
           </div>
-        </form>        
+        </form>
+        {preload}     
       </article>
     );
   }

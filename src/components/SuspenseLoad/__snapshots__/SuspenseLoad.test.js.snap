@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuspenseLoad Component Expect to render SuspenseLoad Component 1`] = `ShallowWrapper {}`;

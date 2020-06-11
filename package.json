@@ -2,6 +2,10 @@
   "name": "fun-with-images",
   "homepage": "https://tomkiworld.github.io/fun-with-images/",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TomKiWorld/fun-with-images"
+  },
   "author": "TomKiWorld",
   "license": "ISC",
   "dependencies": {
@@ -22,7 +26,9 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "cover": "npm test -- --coverage --watchAll"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2"
   }
 }

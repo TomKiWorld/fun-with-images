@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Greet Component Expect to render Greet Component 1`] = `ShallowWrapper {}`;
+
+exports[`Greet Component Expect to render Greet Component with welcome back 1`] = `ShallowWrapper {}`;

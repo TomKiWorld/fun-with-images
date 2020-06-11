@@ -6,7 +6,7 @@ import {
   RESUBMIT_IMAGE_URL,
   CHANGE_USER,
   SET_USER_ENTRIES
-} from './constants'
+} from './constants';
 
 const inputImageState = {
   inputValue: '',
@@ -19,14 +19,14 @@ export const imageUrlInputValue = (state=inputImageState, action={}) => {
   switch(action.type){
     case CHANGE_INPUT_VALUE : 
       return { ...state, inputValue: action.payload };
-    case SET_IMAGE_URL :
-      return { ...state, imageUrl: action.payload };
-    case SET_IMAGE_URL_ERROR :
-      return { ...state, imageUrlError: action.payload };
     case RESUBMIT_INPUT_VALUE :
       return { ...state, inputValue: action.payload };
     case RESUBMIT_IMAGE_URL :
       return { ...state, resubmit: action.payload };
+    case SET_IMAGE_URL :
+      return { ...state, imageUrl: action.payload };
+    case SET_IMAGE_URL_ERROR :
+      return { ...state, imageUrlError: action.payload };
     default:
       return state;
   }
@@ -45,7 +45,7 @@ const initalUser = {
 export const userInformation = (state=initalUser, action={}) => {
   switch(action.type) {
     case CHANGE_USER:
-      if (action.payload.id) {
+      if (action.payload && action.payload.id) {
         const user = action.payload;
         return {
           ...state, user: {

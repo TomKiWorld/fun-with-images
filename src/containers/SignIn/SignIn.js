@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FormInput from '../../components/FormFields/FormInput/FormInput';
 import FormSubmit from '../../components//FormFields/FormSubmit/FormSubmit';
+import Preloader from '../../components/Preloader/Preloader';
 import { DATABASE } from '../../constants';
 
 /**
@@ -12,20 +13,13 @@ import { DATABASE } from '../../constants';
  * - onRouteChange => Function to change the state of route
  */
 class SignIn extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       signInEmail: '',
       signInPassword: '',
-      loginError: ''
-    }
-  }
-
-  // Allow pressing the enter key and not only the button
-  handleKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      const signIn = document.querySelector('.signIn');
-      signIn.click();
+      loginError: '',
+      loading: false
     }
   }
 
@@ -38,6 +32,7 @@ class SignIn extends Component {
   onSubmitSignIn = (e, email, password) => {
     e.preventDefault();
     if ((email !== '') && (password !== '')) {
+      this.setState({loading: true})
       fetch(`${DATABASE}/signin`, {
         method: 'post',
         headers: {'Content-type': 'application/json'},
@@ -52,6 +47,7 @@ class SignIn extends Component {
           this.props.loadUser(user);
           this.props.onRouteChange('home');
         } else {
+          this.setState({loading: false})
           this.setState({loginError: user});
         }
       })
@@ -63,6 +59,7 @@ class SignIn extends Component {
   render() {
     const { onRouteChange } = this.props;
     const loginError = this.state.loginError ? <p className='error-message'>{this.state.loginError}</p> : '';
+    const preload = this.state.loading ? <Preloader/> : '';
 
     return (
       <article className='sign-in br3 ba dark-gray b--black-10 mv4 mw6 shadow-5 center'>
@@ -75,7 +72,6 @@ class SignIn extends Component {
                 name='email-address'
                 type='email'
                 onChange={(e) => this.onFieldChange(e, 'signInEmail')}
-                onKeyUp={this.handleKeyUp}
                 extraClass='inputField'
               />
               <FormInput 
@@ -83,7 +79,6 @@ class SignIn extends Component {
                 name='password'
                 type='password'
                 onChange={(e) => this.onFieldChange(e, 'signInPassword')}
-                onKeyUp={this.handleKeyUp}
                 extraClass='inputField'
               />
             </fieldset>
@@ -106,6 +101,7 @@ class SignIn extends Component {
             </div>
           </div>
         </form>
+        {preload}
       </article>
     );
   }  

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImageList Component Expect to render ImageList Component 1`] = `ShallowWrapper {}`;

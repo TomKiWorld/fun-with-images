@@ -100,7 +100,7 @@ class Profile extends Component {
         <h1>Hi <span className='capitalize'>{user.name}</span></h1>
         <ProfileGreet entries={user.entries} />
         {this.showRemoveButton(user.id)}
-        <section className='images-container'>
+        <section>
           {images}
         </section>
       </article>

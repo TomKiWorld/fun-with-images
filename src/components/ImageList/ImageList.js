@@ -4,7 +4,7 @@ import Wiggle from '..//Wiggle/Wiggle';
 
 const ImageList = ({ images , onResubmit}) => {
   return (
-    <div>
+    <div className='images-container'>
       {
         images.map(image => {
           return (

@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "debbe6f1a40c0c3f29f2a197de2913ba",
+    "revision": "9479f3ba45c281028ce7cf65cb4d0733",
     "url": "/fun-with-images/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fun-with-images/static/css/2.3c03f26f.chunk.css"
   },
   {
-    "revision": "38bbfb1c10deac34c95e",
-    "url": "/fun-with-images/static/css/3.d4fb16af.chunk.css"
+    "revision": "03e333c1cbac1bb0efc1",
+    "url": "/fun-with-images/static/css/3.760b03a6.chunk.css"
   },
   {
     "revision": "3f304fd2228a9aaf2997",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fun-with-images/static/css/5.b847593c.chunk.css"
   },
   {
-    "revision": "80a4440b1f747d36e8ad",
-    "url": "/fun-with-images/static/css/main.d960dc5d.chunk.css"
+    "revision": "6f768df2c170b54024b8",
+    "url": "/fun-with-images/static/css/main.258b5e27.chunk.css"
   },
   {
     "revision": "1746155f846e8efc933d",
@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fun-with-images/static/js/2.e767df9a.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "38bbfb1c10deac34c95e",
+    "revision": "03e333c1cbac1bb0efc1",
     "url": "/fun-with-images/static/js/3.aec5d034.chunk.js"
   },
   {
@@ -44,12 +44,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fun-with-images/static/js/5.fd574abe.chunk.js"
   },
   {
-    "revision": "80a4440b1f747d36e8ad",
-    "url": "/fun-with-images/static/js/main.0a980012.chunk.js"
+    "revision": "6f768df2c170b54024b8",
+    "url": "/fun-with-images/static/js/main.fb2df3c8.chunk.js"
   },
   {
-    "revision": "ae6f3d16232b8ecb58da",
-    "url": "/fun-with-images/static/js/runtime-main.14e942af.js"
+    "revision": "cc5882fc06f7f0643f08",
+    "url": "/fun-with-images/static/js/runtime-main.0283ff51.js"
   },
   {
     "revision": "3a91bf1cd5b2ec4f1eaee43dabc193ac",

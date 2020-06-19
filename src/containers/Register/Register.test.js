@@ -24,7 +24,7 @@ describe('Register Component', () => {
   });
 
   it('Expect to handle error submit register', () => {
-    const submitBtn = wrapper.find('[type=\'submit\']').at(0);
+    const submitBtn = wrapper.find('[value=\'Register\']').at(0);
     submitBtn.simulate('click', { preventDefault: jest.fn() });
     expect.assertions(5);
     expect(wrapper.state().nameError).toEqual('Please enter your name');
@@ -50,7 +50,7 @@ describe('Register Component', () => {
   });
 
   it('Expect to handle submit register', () => {
-    const submitBtn = wrapper.find('[type=\'submit\']').at(0);
+    const submitBtn = wrapper.find('[value=\'Register\']').at(0);
     submitBtn.simulate('click', { preventDefault: jest.fn() });
     expect(wrapper.state().loading).toEqual(true);
   });

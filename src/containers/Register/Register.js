@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FormInput from '../../components/FormFields/FormInput/FormInput';
 import FormSubmit from '../../components/FormFields/FormSubmit/FormSubmit';
 import Preloader from '../../components/Preloader/Preloader';
+import ProfileAvatar from '../../components/ProfileAvatar/ProfileAvatar';
 import { DATABASE } from '../../constants';
 
 /**
@@ -19,6 +20,7 @@ class Register extends Component {
       name: '',
       email: '',
       password: '',
+      avatar: 'avatarOne',
       nameError: '',
       emailError: '',
       passwordError: '',
@@ -46,10 +48,37 @@ class Register extends Component {
     this.setState({[term]: event.target.value })
   }
 
+  getUserData = (id, token) => {
+    return fetch(`${DATABASE}/profile/${id}`, {
+      method: 'get',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': token
+      }
+    })
+    .then(resp => resp.json())
+    .then(user => {
+      if (user && user.email) {
+        this.props.loadUser(user);
+        this.setState({
+          registerError: '',
+          loading: false
+        });
+        this.props.onRouteChange('home');    
+      } else {
+        this.setState({
+          registerError: user,
+          loading: false
+        });
+      }
+    })
+    .catch(err => console.log(err))
+  }
+
   // Validate user input and register the user
   onSubmitRegister = (e) => {
     e.preventDefault();
-    let {name, email, password } = this.state;
+    let {name, email, avatar, password } = this.state;
     let validName = false;
     let validEmail = false;
     let validPassword = false;
@@ -86,23 +115,15 @@ class Register extends Component {
         body: JSON.stringify({
           name: name,
           email: email,
+          avatar: avatar,
           password: password
         })
       })
       .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user);
-          this.setState({
-            registerError: '',
-            loading: false
-          });
-          this.props.onRouteChange('home');
-        } else {
-          this.setState({
-            registerError: user,
-            loading: false
-          });
+      .then(data => {
+        if (data && data.success === 'true') {
+          this.props.saveToken(data.token);
+          this.getUserData(data.userId, data.token);
         }
       })
       .catch(err => {
@@ -114,6 +135,10 @@ class Register extends Component {
     } else {
       this.setState({registerError: 'Something went wrong'});
     }
+  }
+
+  selectAvatar = (avatar) => {
+    this.setState({avatar: avatar});
   }
 
   render() {
@@ -143,6 +168,11 @@ class Register extends Component {
                 onChange={(e) => this.onFieldChange(e, 'email')}
               />
               {emailError}
+              <ProfileAvatar 
+                title='Select your Avatar:'
+                avatar={this.state.avatar}
+                selectAvatar={this.selectAvatar}
+              />
               <FormInput 
                 label='Password'
                 name='password'
@@ -153,14 +183,13 @@ class Register extends Component {
             </fieldset>
             <FormSubmit
               value='Register'
-              type='submit'
               onClick={this.onSubmitRegister}
               extraClass='register'
             />
             {registerError}
           </div>
         </form>
-        {preload}     
+        {preload}
       </article>
     );
   }

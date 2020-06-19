@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileAvatar Component Expect to render ProfileAvatar Component 1`] = `ShallowWrapper {}`;

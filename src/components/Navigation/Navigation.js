@@ -1,4 +1,5 @@
 import React from 'react';
+import ProfileDropDown from '../ProfileDropDown/ProfileDropDown';
 
 /**
  * Site navigation
@@ -6,26 +7,13 @@ import React from 'react';
  * Required props:
  * - onRouteChange => Function to change the state of route
  * - isSignedIn => State to show relative links
- * - route => The current route from state
  */
-const Navigation = ({ onRouteChange, isSignedIn, route }) => {
-  const mainLink = route === 'home' 
-    ? 
-    <p 
-    onClick={() => onRouteChange('profile')}
-    className='link dim black underline pa3 pointer'>Profile</p>
-    :
-    <p 
-      onClick={() => onRouteChange('home')}
-      className='link dim black underline pa3 pointer'>Home</p>
-
+const Navigation = ({ onRouteChange, isSignedIn }) => {
   if (isSignedIn) {
     return (
       <nav className='main-nav end'>
-        {mainLink}
-        <p 
-          onClick={() => onRouteChange('signin')}
-          className='link dim black underline pa3 pointer'>Sign out</p>
+        <ProfileDropDown
+          onRouteChange={onRouteChange} />
       </nav>
     )
   } else {

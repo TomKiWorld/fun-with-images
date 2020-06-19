@@ -1,26 +1,14 @@
 {
   "name": "fun-with-images",
-  "homepage": "https://tomkiworld.github.io/fun-with-images/",
   "version": "0.1.0",
+  "author": "TomKiWorld",
+  "description": "Playground App with face recognition API",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/TomKiWorld/fun-with-images"
   },
-  "author": "TomKiWorld",
-  "license": "ISC",
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "gh-pages": "^2.2.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-particles-js": "^3.2.1",
-    "react-redux": "^7.2.0",
-    "react-scripts": "3.4.1",
-    "redux": "^4.0.5",
-    "tachyons": "^4.12.0"
-  },
+  "homepage": "https://tomkiworld.github.io/fun-with-images/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -44,6 +32,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "gh-pages": "^2.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-particles-js": "^3.2.1",
+    "react-redux": "^7.2.0",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "tachyons": "^4.12.0"
   },
   "devDependencies": {
     "enzyme": "^3.11.0",

@@ -81,7 +81,10 @@ class FaceApp extends Component {
   getColors = () => {
     fetch(`${DATABASE}/image-colors`, {
       method: 'post',
-      headers: {'Content-type': 'application/json'},
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': window.sessionStorage.getItem('token')
+      },
       body: JSON.stringify({
         input: this.props.inputValue
       })
@@ -97,7 +100,10 @@ class FaceApp extends Component {
       }
       fetch(`${DATABASE}/image`, {
         method: 'put',
-        headers: {'Content-type': 'application/json'},
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': window.sessionStorage.getItem('token')
+        },
         body: JSON.stringify({
           id: this.props.user.id,
           url: this.props.imageUrl
@@ -127,7 +133,10 @@ class FaceApp extends Component {
   getFaces = () => {
     fetch(`${DATABASE}/image-faces`, {
       method: 'post',
-      headers: {'Content-type': 'application/json'},
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': window.sessionStorage.getItem('token')
+      },
       body: JSON.stringify({
         input: this.props.inputValue
       })

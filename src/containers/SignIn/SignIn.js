@@ -23,6 +23,49 @@ class SignIn extends Component {
     }
   }
 
+  componentDidMount() {
+    const token = window.sessionStorage.getItem('token');
+    if(token) {
+      fetch(`${DATABASE}/signin`, {
+        method: 'post',
+        headers: {
+          'Content-type': 'application/json',
+          'Authorization': token
+        }
+      })
+      .then(resp => resp.json())
+      .then(data => {
+        if ( data && data.id) {
+          this.getUserData(data.id, token);
+        }
+      })
+    }
+  }
+
+  getUserData = (id, token) => {
+    return fetch(`${DATABASE}/profile/${id}`, {
+      method: 'get',
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': token
+      }
+    })
+    .then(resp => resp.json())
+    .then(user => {
+      if (user && user.email) {
+        this.props.loadUser(user);
+        this.setState({loading: false});
+        this.props.onRouteChange('home');    
+      } else {
+        this.setState({
+          loginError: user,
+          loading: false
+        });
+      }
+    })
+    .catch(err => console.log(err))
+  }
+
   // Set state on input change
   onFieldChange = (event, term) => {
     this.setState({[term]: event.target.value })
@@ -42,14 +85,14 @@ class SignIn extends Component {
         })
       })
       .then(response => response.json())
-      .then(user => {
-        if (user.id) {
-          this.props.loadUser(user);
-          this.setState({loading: false});
-          this.props.onRouteChange('home');
+      .then(data => {
+        if (data.userId && data.success === 'true') {
+          console.log('all good', data.token)
+          this.props.saveToken(data.token);
+          this.getUserData(data.userId, data.token);
         } else {
           this.setState({
-            loginError: user,
+            loginError: data,
             loading: false
           });
         }
@@ -94,13 +137,11 @@ class SignIn extends Component {
             {loginError}
             <FormSubmit
               value='Sign in'
-              type='submit'
               onClick={(e) => this.onSubmitSignIn(e, this.state.signInEmail, this.state.signInPassword)}
               extraClass='signIn'
             />
             <FormSubmit
               value='Log in as Visitor'
-              type='submit'
               onClick={(e) => this.onSubmitSignIn(e, 'visitor@gmail.com', 'visit')}
             />
             <div className='lh-copy mt3'>

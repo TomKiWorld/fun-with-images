@@ -42,6 +42,7 @@ class MainPage extends Component {
       this.setState(initalState);
       this.props.onInputChange('');
       this.props.onUserLoad({});
+      window.sessionStorage.removeItem('token');
     }
     if (route === 'home') {
       this.props.onImageChange('');
@@ -50,13 +51,19 @@ class MainPage extends Component {
     this.setState({route: route})
   }
 
+  // Save JWT Token
+  saveAuthTokenInSession = (token) => {
+    window.sessionStorage.setItem('token', token);
+  }
+
   renderContent = (route) => {
     switch(route) {
       case 'signin':
         return (
           <SignIn
             loadUser={this.props.onUserLoad}
-            onRouteChange={this.onRouteChange} 
+            onRouteChange={this.onRouteChange}
+            saveToken={this.saveAuthTokenInSession}
           />
         );
       case 'home':
@@ -71,6 +78,7 @@ class MainPage extends Component {
             <Register 
               loadUser={this.props.onUserLoad}
               onRouteChange={this.onRouteChange}
+              saveToken={this.saveAuthTokenInSession}
             />
           </SuspenseLoad>
         );
@@ -78,6 +86,7 @@ class MainPage extends Component {
         return (
           <SuspenseLoad>
             <MainProfile
+              loadUser={this.props.onUserLoad}
               onRouteChange={this.onRouteChange}
             />
           </SuspenseLoad>
@@ -86,7 +95,8 @@ class MainPage extends Component {
         return (
           <SignIn 
             loadUser={this.props.onUserLoad}
-            onRouteChange={this.onRouteChange} 
+            onRouteChange={this.onRouteChange}
+            saveToken={this.saveAuthTokenInSession}
           />
         );
     }
@@ -103,8 +113,7 @@ class MainPage extends Component {
         />
         <Header 
           isSignedIn={isSignedIn}
-          onRouteChange={this.onRouteChange} 
-          route={route}
+          onRouteChange={this.onRouteChange}
           />
         { this.renderContent(route)}
         <Footer />

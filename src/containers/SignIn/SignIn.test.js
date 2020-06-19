@@ -12,7 +12,7 @@ describe('SignIn Component', () => {
   });
 
   it('Expect to handle error submit sign in', () => {
-    const submitBtn = wrapper.find('[type=\'submit\']').at(0);
+    const submitBtn = wrapper.find('[value=\'Sign in\']').at(0);
     submitBtn.simulate('click', { preventDefault: jest.fn() });
     expect(wrapper.state().loginError).toEqual('Please make sure both fields are entered');
   });
@@ -28,13 +28,13 @@ describe('SignIn Component', () => {
   });
 
   it('Expect to handle submit sign in', () => {
-    const submitBtn = wrapper.find('[type=\'submit\']').at(0);
+    const submitBtn = wrapper.find('[value=\'Sign in\']').at(0);
     submitBtn.simulate('click', { preventDefault: jest.fn() });
     expect(wrapper.state().loading).toEqual(true);
   });
 
   it('Expect to handle submit sign in as visitor', () => {
-    const submitBtn = wrapper.find('[type=\'submit\']').at(1);
+    const submitBtn = wrapper.find('[value=\'Log in as Visitor\']').at(0);
     submitBtn.simulate('click', { preventDefault: jest.fn() });
     expect(wrapper.state().loading).toEqual(true);
   });

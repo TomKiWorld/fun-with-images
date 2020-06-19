@@ -1,12 +1,14 @@
 # 🥳 Fun with images 🥳
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Usage
+- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- The server configuration for this App is [Fun with images API](https://github.com/TomKiWorld/fun-with-images-api) project.
+- This App connects to the [Clarifai](https://www.clarifai.com/) API to detect colors and faces in images.
+- Sets a JWT Token in local session and Redis to manage sessions and Authorization to access database. 
 
-This App communicates with the [Clarifai API](https://www.clarifai.com/) to locate faces and detect colors in a submited image.
+You can register, login, view, update and delete your profile.
 
-You can register, login, view your profile and delete your profile.
-
-You have the option to log in as ***Visitor*** (See comment below), in this case you will not have the option to delete your profile.
+You have the option to log in as ***Visitor*** (See comment below), in this case you will not have the option to edit or delete your profile.
 
 ### This APP DOES NOT:
 
@@ -18,22 +20,26 @@ Just run npm install and make sure to clone the [fun-with-images-api](https://gi
 
 Without the server and database the app will not work, you will not be able to login, register, view your profile etc.
 
-**Most importent:** Once you have established a databse connection, **create the visitor account** which is mendetory for the 'Log in as visitor' Button on the login page!
+**Most importent:** Once you have established a databse connection, **create the visitor account** which is mendetory for the 'Log in as visitor' Button on the login page! If you use the docker command in the server repo the database will be ready to use.
 
 ## Available Scripts as common in React Apps
 
 In the project directory, you can run:
 
 ### `npm start`
-
 Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser (This port might change if you have another App running on port 3000).
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `npm run build`
+## `npm run deploy`
+To deploy to Github pages
 
+### `npm run cover`
+To check test coverage
+
+### `npm run build`
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
 

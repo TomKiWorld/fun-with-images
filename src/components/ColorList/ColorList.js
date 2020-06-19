@@ -24,7 +24,7 @@ const ColorList = ({ colors, showColor, onShowClick }) => {
     <div className='colors-list br3' style={{display: display}}>
       <span 
         className='close-colors' 
-        onClick={onShowClick}>X</span>
+        onClick={onShowClick}>&times;</span>
       <h2>These colors were detected:</h2>
       {colorText}
     </div>

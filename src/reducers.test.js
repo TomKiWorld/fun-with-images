@@ -70,6 +70,7 @@ describe('userInformation', () => {
       id: '',
       name: '',
       email: '',
+      avatar: 'avatarOne',
       entries: 0,
       joined: ''
     }

@@ -7,15 +7,27 @@ describe('FormInput Component', () => {
     expect(shallow(<FormInput />)).toMatchSnapshot();
   });
 
-  it('Expect to render password FormInput Component', () => {
-    expect(shallow(<FormInput name={'password'}/>)).toMatchSnapshot();
+  it('Expect to renderFormInput Component as password', () => {
+    const wrapper = shallow(<FormInput name={'password'}/>);
+    const input = wrapper.find('input').at(0);
+    expect(input.prop('name')).toBe('password');
   });
 
-  it('Expect to render email-address FormInput Component', () => {
-    expect(shallow(<FormInput name={'email-address'}/>)).toMatchSnapshot();
+  it('Expect to render FormInput Component as email-address', () => {
+    const wrapper = shallow(<FormInput name={'email-address'}/>);
+    const input = wrapper.find('input').at(0);
+    expect(input.prop('name')).toBe('email-address');
   });
 
-  it('Expect to render name FormInput Component', () => {
-    expect(shallow(<FormInput name={'name'}/>)).toMatchSnapshot();
+  it('Expect to render FormInput Component as name', () => {
+    const wrapper = shallow(<FormInput name={'name'}/>);
+    const input = wrapper.find('input').at(0);
+    expect(input.prop('name')).toBe('name');
+  });
+
+  it('Expect to render FormInput Component with placeholder', () => {
+    const wrapper = shallow(<FormInput name={'name'} placeholder={'Guest'}/>);
+    const input = wrapper.find('input').at(0);
+    expect(input.prop('placeholder')).toBe('Guest');
   });
 });

@@ -37,6 +37,7 @@ const initalUser = {
     id: '',
     name: '',
     email: '',
+    avatar: 'avatarOne',
     entries: 0,
     joined: ''
   }
@@ -53,6 +54,7 @@ export const userInformation = (state=initalUser, action={}) => {
             name: user.name,
             email: user.email,
             entries: user.entries,
+            avatar: user.avatar,
             joined: user.joined
           }
         }
@@ -66,6 +68,7 @@ export const userInformation = (state=initalUser, action={}) => {
             name: user.name,
             email: user.email,
             entries: action.payload.count,
+            avatar: user.avatar,
             joined: user.joined
           }
         };

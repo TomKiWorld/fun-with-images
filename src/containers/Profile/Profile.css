@@ -7,10 +7,69 @@
   margin: 0 auto;
 }
 
-.remove-button {
+.cta-button {
+  margin: 0.5rem;
   background-color: #E900A3;
   color: white;
   padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;
+}
+
+.profile-model {
+  background-color: rgba(255, 255, 255, 0.7);
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-modal {
+  font-size: 3rem;
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: grey;
+}
+
+.profile-container {
+  position: relative;
+  background-color: #FFF;
+  width: 22rem;
+}
+
+.profile-user-name {
+  display: inline-block;
+  margin-left: 2rem;
+}
+
+.profile-info {
+  margin: 1rem auto;
+  border-bottom: 0.1rem solid rgba(92, 218, 218, 0.7);
+}
+
+.profile-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-button {
+  width: 6rem;
+}
+
+.delete-profile-button {
+  display: block;
+  margin: 0.5rem auto;
+}
+
+.error-message {
+  text-align: center;
 }

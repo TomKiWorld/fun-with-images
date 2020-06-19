@@ -1,0 +1,11 @@
+.profile-avatars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 14rem;
+  margin: 0 auto;
+}
+
+.avatar-img.selected {
+  border: 0.1rem solid #E900A3;
+}

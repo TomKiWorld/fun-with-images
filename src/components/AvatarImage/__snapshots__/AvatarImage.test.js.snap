@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarImage Component Expect to render ImageCard Component 1`] = `ShallowWrapper {}`;

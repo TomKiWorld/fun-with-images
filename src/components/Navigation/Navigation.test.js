@@ -7,14 +7,16 @@ describe('Navigation Component', () => {
     route: 'signin',
     isSignedIn: false
   };
+
   const mockRouteChange = (route) => {
     mockState.route = route;
-  };
+  }
+
   const wrapper = shallow(
     <Navigation 
       route={mockState.route} 
       isSignedIn={mockState.isSignedIn}
-      onRouteChange={mockRouteChange}
+      onRouteChange={(value) => mockRouteChange(value)}
     />
   );
 
@@ -22,56 +24,25 @@ describe('Navigation Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('Expect to render register route', () => {
-    wrapper.find('p').at(1).simulate('click')
+  it('Expect to change rout to register', () => {
+    const registerBtn = wrapper.find('.link').at(1);
+    registerBtn.simulate('click', { value: 'register' } );
     expect(mockState.route).toBe('register');
   });
 
-  it('Expect to render profile route', () => {
-    const wrapper = shallow(
-      <Navigation 
-        route={'home'} 
-        isSignedIn={true}
-        onRouteChange={mockRouteChange}
-      />
-    );
-    wrapper.find('p').at(0).simulate('click')
-    expect(mockState.route).toBe('profile');
-  });
-
-  it('Expect to render home route', () => {
-    const wrapper = shallow(
-      <Navigation 
-        route={'profile'} 
-        isSignedIn={true}
-        onRouteChange={mockRouteChange}
-      />
-    );
-    wrapper.find('p').at(0).simulate('click')
-    expect(mockState.route).toBe('home');
-  });
-
-  it('Expect to render signin route when signed in', () => {
-    const wrapper = shallow(
-      <Navigation 
-        route={'profile'} 
-        isSignedIn={true}
-        onRouteChange={mockRouteChange}
-      />
-    );
-    wrapper.find('p').at(1).simulate('click')
+  it('Expect to change rout to sigin', () => {
+    const signinBtn = wrapper.find('.link').at(0);
+    signinBtn.simulate('click', { value: 'signin' } );
     expect(mockState.route).toBe('signin');
   });
 
-  it('Expect to render signin route when signed out', () => {
+  it('Expect to render Navigation Component when signed in', () => {
     const wrapper = shallow(
       <Navigation 
-        route={'profile'} 
-        isSignedIn={false}
-        onRouteChange={mockRouteChange}
+        route={mockState.route} 
+        isSignedIn={true}
       />
     );
-    wrapper.find('p').at(0).simulate('click')
-    expect(mockState.route).toBe('signin');
+    expect(wrapper).toMatchSnapshot();
   });
 });

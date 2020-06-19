@@ -1,9 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FormInput Component Expect to render FormInput Component 1`] = `ShallowWrapper {}`;
-
-exports[`FormInput Component Expect to render email-address FormInput Component 1`] = `ShallowWrapper {}`;
-
-exports[`FormInput Component Expect to render name FormInput Component 1`] = `ShallowWrapper {}`;
-
-exports[`FormInput Component Expect to render password FormInput Component 1`] = `ShallowWrapper {}`;

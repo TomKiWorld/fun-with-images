@@ -1,0 +1,26 @@
+.pop-up-container {
+  width: 100%;
+  position: fixed;
+  z-index: 200;
+}
+
+.pop-up-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #CC0B78;
+  color: white;
+  padding: 2rem;
+}
+
+.close-pop-up {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 2rem;
+  align-self: flex-end;
+}
+
+.pop-up-message p {
+  margin-bottom: 0;
+}

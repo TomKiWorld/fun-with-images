@@ -8,15 +8,13 @@ import Logo from '../Logo/Logo';
  * Required props:
  * - isSignedIn => In order to dispaly the correct naviagtion from state
  * - onRouteChange => Function to change route state
- * - route => The current route from state
  */
-const Header = ({isSignedIn, onRouteChange, route}) => {
+const Header = ({ avatarId, isSignedIn, onRouteChange }) => {
   return (
     <header className='site-header'>
-      <Navigation 
-          isSignedIn={isSignedIn}
-          onRouteChange={onRouteChange}
-          route={route} />
+      <Navigation
+        isSignedIn={isSignedIn}
+        onRouteChange={onRouteChange} />
       <Logo />
     </header>
   );

@@ -11,14 +11,14 @@ import React from 'react';
  * Optional props:
  * - extraClass => For classlist
  */
-const FormSubmit = ({value, type, onClick, extraClass}) => {
+const FormSubmit = ({value, onClick, extraClass}) => {
   const receivedClass= extraClass ?? '';
   return (
     <div className='mt3'>
       <input 
         onClick={onClick}
         className={`${receivedClass} b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib`} 
-        type={type}
+        type='submit'
         value={value}
       />
     </div>

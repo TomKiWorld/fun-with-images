@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Navigation Component Expect to render Navigation Component 1`] = `ShallowWrapper {}`;
+
+exports[`Navigation Component Expect to render Navigation Component when signed in 1`] = `ShallowWrapper {}`;

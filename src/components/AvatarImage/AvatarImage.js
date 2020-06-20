@@ -23,7 +23,7 @@ const AvatarImage = ({ avatarId }) => {
   return (
     <img
       src={getAvatar(avatarId)}
-      className='avatar-img' alt='avatar'
+      className='avatar-img hyve' alt='avatar'
       />
   );
 }

@@ -94,7 +94,7 @@ class Profile extends Component {
   }
 
   onChangeProtected = () => {
-    this.setState({ popUpMsg: 'This profile is protected, you may not save changes' });
+    this.setState({ popUpMsg: 'This profile is protected, you may not adjust it' });
   }
 
   showRemoveButton = (email) => {

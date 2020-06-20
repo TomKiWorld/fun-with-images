@@ -13,7 +13,6 @@
   color: white;
   padding: 0.5rem;
   border: none;
-  border-radius: 0.5rem;
 }
 
 .profile-model {
@@ -46,9 +45,14 @@
   width: 22rem;
 }
 
+.profile-title {
+  display: flex;
+  align-items: center;
+}
+
 .profile-user-name {
   display: inline-block;
-  margin-left: 2rem;
+  margin: 0 0 0 1rem;
 }
 
 .profile-info {

@@ -15,11 +15,10 @@ import './ImageLinkForm.css';
 
 const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, getColorsError, getFacesError, inputValue }) => {
   return (
-    <div>
-      <p className='f3'>This App detects faces in images</p>
-      <p>Click on the <strong>paint icon</strong> to see which colors were detected</p>
+    <main>
+      <p className='f3 pa4'>This App detects faces and colors in images</p>
       <div className='center'>
-        <form className='center form pa4 br3 shadow-5'>
+        <form className='center form hyve pa4 shadow-5'>
           <input 
             className='f4 pa2 w-70 center' 
             value={inputValue}
@@ -37,7 +36,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, imageUrlError, getColors
       {imageUrlError}
       {getColorsError}
       {getFacesError}
-    </div>
+    </main>
   );
 }
 

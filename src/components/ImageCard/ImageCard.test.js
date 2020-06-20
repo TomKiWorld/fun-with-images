@@ -16,7 +16,7 @@ describe('ImageCard Component', () => {
       onResubmit={onMockResubmit}
       />     
   );
-  const resubmitBtn = wrapper.find('.card-button').at(0);
+  const resubmitBtn = wrapper.find('.cta-button').at(0);
 
   it('Expect to render ImageCard Component', () => {
     expect(wrapper).toMatchSnapshot();

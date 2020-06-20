@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+p { 
+  margin: 0.5rem;
+}
+
+.container {
+  max-width: 55rem;
+  margin: 0 auto;
+}
+
 .center {
   display: flex;
   justify-content: center;
@@ -32,7 +41,6 @@
 }
 
 .main-nav  {
-  padding-top: 1rem;
   font-size: 1rem;
 }
 
@@ -48,15 +56,6 @@
   margin: 0.5rem;
   border-radius: 50%;
   border: 0.01rem solid rgba(0, 0, 0, 0.5);
-  background-color:#556;
-  background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-  linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-  linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-  linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
-  linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a),
-  linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
-  background-size: 20px 35px;
-  background-position: 0 0, 0 0, 10px 17.5px, 10px 17.5px, 0 0, 10px 17.5px;
 }
 
 .sign-in,
@@ -76,7 +75,6 @@
   position: fixed;
   bottom: 0;
   width: 100%;
-  padding-top: 0.5rem;
   background-color: rgba(92, 218, 218, 0.7);
   font-size: 1.2rem;
 }
@@ -106,4 +104,16 @@
   .main-nav  {
     font-size: 1.5rem;
   }
+}
+
+.hyve {
+  background-color:#556;
+  background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+  linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+  linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+  linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+  linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a),
+  linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+  background-size: 20px 35px;
+  background-position: 0 0, 0 0, 10px 17.5px, 10px 17.5px, 0 0, 10px 17.5px;
 }

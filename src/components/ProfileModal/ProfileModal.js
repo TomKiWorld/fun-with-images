@@ -83,17 +83,19 @@ class ProfileModal extends Component {
     const preload = this.state.loading ? <Preloader/> : '';
     return (
       <div className='profile-model'>
-        <article className='profile-container br3 pa4 ba dark-gray b--black-10 mv4 mw6 shadow-5'>
+        <article className='profile-container pa4 ba dark-gray b--black-10 mv4 mw6 shadow-5'>
           <span className='close-modal grow' onClick={toggleModal}>&times;</span>
           <header>
-            <AvatarImage 
-              avatarId={avatar}
-              toggleMenu={toggleModal}
-              />
-            <h1 className='profile-user-name'>{name}</h1>
+            <div className='profile-title'>
+              <AvatarImage 
+                avatarId={avatar}
+                toggleMenu={toggleModal}
+                />
+              <h1 className='profile-user-name'>{name}</h1>              
+            </div>
             <div className='profile-info'>
-              <p>Images submittes: {user.entries}</p>
-              <p>Member Since: {this.getJoinedDate()}</p>
+              <p>Images submitted: {user.entries}</p>
+              <p>Members since: {this.getJoinedDate()}</p>
             </div>
           </header>
           <main>

@@ -1,6 +1,6 @@
 import React from 'react';
+import ColorList from '../ColorList/ColorList';
 import './FaceRecognition.css';
-import colorsIcon from './colorsIcon.svg';
 
 /**
  * Displays 
@@ -12,18 +12,20 @@ import colorsIcon from './colorsIcon.svg';
  * - imageUrl => From state
  * - onShowClick => Function to change state of toggle color list
  */
-const FaceRecognition = ({ imageUrl, onShowClick }) => {
-const imgBlock = imageUrl ? <img id='imageElement' src={imageUrl} alt='result' /> : <p>Submit an image url to start</p>
+const FaceRecognition = ({ imageUrl, colors }) => {
+const imgBlock = imageUrl ? <img id='imageElement' src={imageUrl} alt='result' /> : <p className='white'>Submit an image url to start</p>
 const colorsView = imageUrl ? 
-  <div className='view-colors' onClick={onShowClick}>
-    <img src={colorsIcon} alt='View Colors' />
-  </div> : '';
+  <ColorList 
+    colors={colors} /> : 
+    '';
 
   return (
-    <div className='center image-holder'>
-      {colorsView}
-      {imgBlock}
-    </div>
+    <section className='face-recognition container'>
+      <div className='image-holder'>
+        {imgBlock}
+      </div>
+        {colorsView}
+    </section>
   );
 }
 

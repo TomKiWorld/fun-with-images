@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileDropDown from '../ProfileDropDown/ProfileDropDown';
+import Menu from '../Menu/Menu';
 
 /**
  * Site navigation
@@ -12,7 +12,7 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
   if (isSignedIn) {
     return (
       <nav className='main-nav end'>
-        <ProfileDropDown
+        <Menu
           onRouteChange={onRouteChange} />
       </nav>
     )
@@ -21,10 +21,10 @@ const Navigation = ({ onRouteChange, isSignedIn }) => {
       <nav className='main-nav end'>
         <p 
           onClick={() => onRouteChange('signin')}
-          className='link dim black underline pa3 pointer'>Sign in</p>
+          className='link dim black underline pa3 pointer' >Sign in</p>
         <p 
           onClick={() => onRouteChange('register')}
-          className='link dim black underline pa3 pointer'>Register</p>
+          className='link dim black underline pa3 pointer' >Register</p>
       </nav>
     )
   }

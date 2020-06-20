@@ -6,7 +6,6 @@ import { setInputValue, setImageUrl, setImageUrlErr, resubmitImageUrl, setEntrie
 import Greet from '../../components/Greet/Greet';
 import ImageLinkForm from '../../components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from '../../components/FaceRecognition/FaceRecognition';
-import ColorList from '../../components/ColorList/ColorList';
 
 const mapStateToProps = (state) => {
   return {
@@ -35,7 +34,6 @@ class FaceApp extends Component {
   constructor() {
     super();
     this.state = {
-      showColorList: false,
       getColorsError: '',
       getFacesError: '',
       colors: [],
@@ -191,11 +189,6 @@ class FaceApp extends Component {
     boundingBox.style.bottom = `${box.bottomRow.toFixed(4)}px`;
     return holder.parentElement.appendChild(boundingBox);
   }
-
-  // Toggle the color list pop up
-  toggleColorList = () => {
-    this.setState({showColorList: !this.state.showColorList});
-  }
    
   render() {
     const {
@@ -204,15 +197,14 @@ class FaceApp extends Component {
       onInputChange,
       imageUrl
     } = this.props;
-    const { 
-      showColorList, 
+    const {
       colors 
     } = this.state;
     const imageUrlErrorMsg = imageUrlError ? <p className='error-message'>{imageUrlError}</p> : '';
     const getColorsError = this.state.getColorsError ? <p className='error-message'>{this.state.getColorsError}</p> : '';
     const getFacesError = this.state.getFacesError ? <p className='error-message'>{this.state.getFacesError}</p> : '';
     return (
-      <article className='pa4 mb4'>
+      <article className='mb4'>
         <Greet 
           name={user.name} 
           entries={user.entries} />
@@ -225,11 +217,7 @@ class FaceApp extends Component {
           onButtonSubmit={this.onImageUrlSubmit} />
         <FaceRecognition 
           imageUrl={imageUrl}
-          onShowClick={this.toggleColorList} />
-        <ColorList 
-          colors={colors}
-          showColor={showColorList}
-          onShowClick={this.toggleColorList} />
+          colors={colors} />
       </article>
     );
   }

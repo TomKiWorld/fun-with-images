@@ -4,6 +4,6 @@ body {
   font-family: 'Courier New', Courier, monospace;
   background: linear-gradient(150deg, #5CDADA 0%, #0239B7 100%);
   background-repeat: no-repeat;
-  min-height: 120vh;
+  min-height: 100vh;
   font-size: 16px;
 }

@@ -11,7 +11,7 @@ import React from 'react';
 const Greet = ({name, entries}) => {
   const greet = entries > 0 ? 'Welcome back' : 'Lets start';
   return (
-    <div>
+    <section className='container pa4'>
       <div className='white f3'>
         <h1>{greet} <span className='capitalize'>{name}</span></h1>
         <p>Your current entry count is:</p>
@@ -19,7 +19,7 @@ const Greet = ({name, entries}) => {
       <div className='white f1'>
         <p>#{entries}</p>
       </div>
-    </div>
+    </section>
   );
 }
 

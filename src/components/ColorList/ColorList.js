@@ -6,11 +6,9 @@ import './ColorList.css';
  * 
  * Required props:
  * - colors => Array of colors from the api
- * - showColor => Show or hide the element
  * - onShowClick => On click function to change the value of showColor
  */
-const ColorList = ({ colors, showColor, onShowClick }) => {
-  const display = showColor ? 'block' : 'none';
+const ColorList = ({ colors }) => {
   let colorText = <p>No colors detected.</p>
   if(colors.length) {
     const list = colors.map(color => {
@@ -21,13 +19,10 @@ const ColorList = ({ colors, showColor, onShowClick }) => {
   }  
 
   return (
-    <div className='colors-list br3' style={{display: display}}>
-      <span 
-        className='close-colors' 
-        onClick={onShowClick}>&times;</span>
-      <h2>These colors were detected:</h2>
+    <article className='colors-list'>
+      <h2>Detected colors:</h2>
       {colorText}
-    </div>
+    </article>
   );
 }
 

@@ -87,7 +87,6 @@ class SignIn extends Component {
       .then(response => response.json())
       .then(data => {
         if (data.userId && data.success === 'true') {
-          console.log('all good', data.token)
           this.props.saveToken(data.token);
           this.getUserData(data.userId, data.token);
         } else {
@@ -114,7 +113,7 @@ class SignIn extends Component {
     const preload = this.state.loading ? <Preloader/> : '';
 
     return (
-      <article className='sign-in br3 ba dark-gray b--black-10 mv4 mw6 shadow-5 center'>
+      <article className='sign-in ba dark-gray b--black-10 mv4 mw6 shadow-5 center'>
         <form className='pa4 black-80' action='/'>
           <div className='measure'>
             <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>

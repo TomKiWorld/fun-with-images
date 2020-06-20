@@ -149,7 +149,7 @@ class Register extends Component {
     const preload = this.state.loading ? <Preloader/> : '';
 
     return (
-      <article className='register br3 ba dark-gray b--black-10 mv4 mw6 shadow-5 center'>
+      <article className='register ba dark-gray b--black-10 mv4 mw6 shadow-5 center'>
         <form className='pa4 black-80'>
           <div className='measure'>
             <fieldset id='sign_up' className='ba b--transparent ph0 mh0'>

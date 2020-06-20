@@ -7,7 +7,7 @@ import avatarFour from '../../images/FaceFour.svg';
 import './ProfileAvatar.css';
 
 const setclasses = (text, avatar) => {
-  return text === avatar ? 'avatar-img grow selected' : 'avatar-img grow';
+  return text === avatar ? 'avatar-img hyve grow selected' : 'avatar-img hyve grow';
 }
 
 const ProfileAvatar = ({ title, avatar, selectAvatar }) => {

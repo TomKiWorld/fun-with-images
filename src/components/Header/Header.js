@@ -11,7 +11,7 @@ import Logo from '../Logo/Logo';
  */
 const Header = ({ avatarId, isSignedIn, onRouteChange }) => {
   return (
-    <header className='site-header'>
+    <header className='site-header container'>
       <Navigation
         isSignedIn={isSignedIn}
         onRouteChange={onRouteChange} />

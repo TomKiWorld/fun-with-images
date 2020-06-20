@@ -12,7 +12,7 @@ import './ImageCard.css';
 const ImageCard = ({id, url, onResubmit}) => {
   return (
     <div id={`ImageCard-${id}`} className='ImageCard' style={{backgroundImage:`url("${url}")`}}>
-      <button className='card-button' onClick={() => onResubmit(url)}>Resubmit</button>
+      <button className='cta-button grow' onClick={() => onResubmit(url)}>Resubmit</button>
     </div>
   );
 }

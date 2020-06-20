@@ -3,16 +3,9 @@
   width: 6rem;
   position: absolute;
   top: 0;
-  left: 0;
+  left: 1rem;
 }
 
 .Logo img {
   width: 100%;
-}
-
-@media screen and (min-width: 31rem) {
-  .Logo {
-    height: 10rem;
-    width: 10rem;
-  }
 }

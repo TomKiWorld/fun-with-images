@@ -13,7 +13,7 @@ import React from 'react';
  * Optional props:
  * - extraClass => For classlist 
  */
-const FormInput = ({label, name, type, placeholder, onChange, onKeyUp, extraClass}) => {
+const FormInput = ({ label, name, type, placeholder, onChange, onKeyUp, extraClass, ...otherProps }) => {
   const receivedClass= extraClass ?? '';
   let autocomplete = ''
   switch(name) {

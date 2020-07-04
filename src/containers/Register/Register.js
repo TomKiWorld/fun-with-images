@@ -159,6 +159,7 @@ class Register extends Component {
                 name='name'
                 type='text'
                 onChange={(e) => this.onFieldChange(e, 'name')}
+                required
               />
               {nameError}
               <FormInput 
@@ -166,6 +167,7 @@ class Register extends Component {
                 name='email-address'
                 type='email'
                 onChange={(e) => this.onFieldChange(e, 'email')}
+                required
               />
               {emailError}
               <ProfileAvatar 
@@ -178,6 +180,7 @@ class Register extends Component {
                 name='password'
                 type='password'
                 onChange={(e) => this.onFieldChange(e, 'password')}
+                required
               />
               {passwordError}
             </fieldset>

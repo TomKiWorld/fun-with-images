@@ -124,6 +124,7 @@ class SignIn extends Component {
                 type='email'
                 onChange={(e) => this.onFieldChange(e, 'signInEmail')}
                 extraClass='inputField'
+                required
               />
               <FormInput 
                 label='Password'
@@ -131,6 +132,7 @@ class SignIn extends Component {
                 type='password'
                 onChange={(e) => this.onFieldChange(e, 'signInPassword')}
                 extraClass='inputField'
+                required
               />
             </fieldset>
             {loginError}

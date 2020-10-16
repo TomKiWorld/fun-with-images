@@ -1,9 +1,12 @@
 # 🥳 Fun with images 🥳
 
+## Preview
+https://tomkiworld.github.io/fun-with-images/
+
 ## Usage
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 - The server configuration for this App is [Fun with images API](https://github.com/TomKiWorld/fun-with-images-api) project.
-- This App connects to the [Clarifai](https://www.clarifai.com/) API to detect colors and faces in images.
+- This App connects to the [Clarifai](https://www.clarifai.com/) API and detects colors and faces in images.
 - Sets a JWT Token in local session and Redis to manage sessions and Authorization to access database. 
 
 You can register, login, view, update and delete your profile.
